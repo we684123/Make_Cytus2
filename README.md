@@ -5,26 +5,28 @@
 
 ---
 ## 怎麼使用 how to use
-下載這個專案後開啟資料夾
+下載這個專案後開啟資料夾    
 
-請將檔名 "XXX.hard.txt" 或 "XXX.easy.txt" 複製到win64資料內
-然後啟動 "Make_Cytus2.exe"
-之後產生兩個檔案
-"XXX.v1plus" 可以複製內容至 Excel 監視內容
-"XXX.hard.txt.c2v0" 或 "XXX.easy.txt.c2v0" 則是 Cytus2_V0 格式的譜面檔。
+請將檔名 "XXX.hard.txt" 或 "XXX.easy.txt" 複製到win64資料內    
+然後啟動 "Make_Cytus2.exe"    
+之後產生兩個檔案    
+"XXX.v1plus" 可以複製內容至 Excel 監視內容    
+"XXX.c2v0plus" 可以看詳細的轉換狀態    
+"XXX.hard.txt.c2v0" 或 "XXX.easy.txt.c2v0" 則是 Cytus2_V0 格式的譜面檔。    
 
-或者你是其他作業系統且有 Python3 則可以在同目錄中開啟命令視窗(cmd)輸入
+或者你是其他作業系統且有 Python3 則可以在同目錄中開啟命令視窗(cmd)輸入    
 `python3 Make_Cytus2.py`
 //--------------------------------------------------------
-Download this repository and open folder
+Download this repository and open folder    
 
-plz copy file name "XXX.hard.txt" or "XXX.easy.txt" to win64 folder.
-and use "Make_Cytus2.exe" .
-after
-"XXX.v1plus" you can copy to Excel and click .
-"XXX.hard.txt.c2v0" or "XXX.easy.txt.c2v0" is Cytus2_V0 format flie .
+plz copy file name "XXX.hard.txt" or "XXX.easy.txt" to win64 folder.    
+and use "Make_Cytus2.exe" .    
+after    
+"XXX.v1plus" you can copy to Excel and click error.    
+"XXX.c2v0plus" Cytus2_V0 flie details
+"XXX.hard.txt.c2v0" or "XXX.easy.txt.c2v0" is Cytus2_V0 format flie .    
 
-or if you computer OS is not Windows and have Python3,you can open Command window and run 
+or if you computer OS is not Windows and have Python3,you can open Command window and run     
 `python3 Make_Cytus2.py`
 
 ---
