@@ -15,8 +15,8 @@
 "XXX.hard.txt.c2v0" 或 "XXX.easy.txt.c2v0" 則是 Cytus2_V0 格式的譜面檔。    
 
 或者你是其他作業系統且有 Python3 則可以在同目錄中開啟命令視窗(cmd)輸入    
-`python3 Make_Cytus2.py`
-//--------------------------------------------------------
+`python3 Make_Cytus2.py`    
+//--------------------------------------------------------    
 Download this repository and open folder    
 
 plz copy file name "XXX.hard.txt" or "XXX.easy.txt" to win64 folder.    
