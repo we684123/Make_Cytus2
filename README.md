@@ -8,54 +8,54 @@
 採用自定義格式，不過是從V2格式上延伸過來的    
 ![Imgur](https://i.imgur.com/5VCx1VR.png)    
 
-VERSION 3    
+**VERSION 3**    
 //形式為整數 ， type=int
 原本是用來宣告下方的譜面要用什麼方式使用，但現在沒用    
 
-BPM 280    
+**BPM 280**    
 //形式為整數 ， type=int    
 歌曲的BPM，用來調整速度    
 
-PAGE_SHIFT 1.799999    
+**PAGE_SHIFT 1.799999**    
 //形式為浮點數 ， type=float    
 掃線開始的位置，雖然在Cytus2上無法用，但在製作V2譜面就有用了
 
-PAGE_SIZE 0.857142    
+**PAGE_SIZE 0.857142**    
 //形式為浮點數 ， type=float    
 掃線每掃一幕(or屏)所需要的時間    
 
-scan_line_direction_opposite 1    
+**scan_line_direction_opposite 1**    
 //形式為整數 ， type=int ； 只能輸入0或1 (only 0 or 1)    
 //預設為0 ， Default 0    
 掃線初始方向，一般來說為0，但如果實際方向相反的話可以調為1，他會再反過來。    
 
-extension_of_time 0    
+**extension_of_time 0**    
 //形式為浮點數 ， type=float    
 //預設為0 ， Default 0    
 整體時間延遲或減少 如果為-3會全譜面的時間-3秒，4的話則全體+4秒    
 
-auto_fix_type 0    
+**auto_fix_type 0**    
 //形式為整數 ， type=int ； 只能輸入0或1 (only 0 or 1)    
 //預設為0 ， Default 0    
 自動幫忙修正HOLD溢出邊界的問題，但不保證效果，預期是如果你的HOLD長度小於該幕的總長且很接近邊界，這時後會自動把該HOLD移到下一幕中，如果是HOLD長度大於該幕的總長則會把note型態變成LONG
 
-format_version 0    
+**format_version 0**    
 //形式為整數 ， type=int ；    
 //預設為0 ， Default 0    
 這是設定最後輸出譜面時的版本，基本上還是用0就好        
 
-beat 4    
+**beat 4**    
 //形式為整數 ， type=int ；    
 //預設為4 ， Default 4    
 歌曲的節拍數，通常都是4拍，極少數情況是3拍    
 
 
-time_base 480    
+**time_base 480**    
 //形式為整數 ， type=int ；    
 //預設為480 ， Default 480    
 這個我也不太清楚，但知道設480就對了，估計跟一幕的"質量"有關    
 
-conversion_constant 60000000    
+**conversion_constant 60000000**    
 //形式為整數 ， type=int ；    
 //預設為60000000 ， Default 60000000    
 這個是 秒數s 與 tick 換算關係的轉換常數，一般來說不用改，但如果你發現一開始note的時間是準的，到後面越來越不準，則可以細部微調，或者先試試改成 59999940 看看，不行那就自己在微調。    
@@ -101,7 +101,7 @@ NOTE	6	11.499799	0.500000	0.754260
 變速方式 輸入  1 等於文字提示 "speed up"，且掃線顏色變 紅(R)    
 變速方式 輸入 -1 等於文字提示 "speed down"，且掃線顏色變 綠(G)    
 之後可能補上 0 變白色且沒文字    
-    
+
 #### BPM 格式如下：    
 (BPM)-(預變的BPM)-(作用時間)    
 (字串string)-(整數int)-(浮點數float)    
