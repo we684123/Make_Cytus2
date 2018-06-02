@@ -4,6 +4,30 @@
 基本上可以先用[Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:JCEXE/List_of_Cytus_simulation_programs:_2017_edition#Cytunity)對好時間跟位置後在輸出譜面並[將link重新綁好](https://cdn.discordapp.com/attachments/430987888042180610/431001210552582146/79e38aa80b706550.rar)後，再送來這邊作型態變換和變速。
 
 ---
+## 怎麼使用 how to use
+下載這個專案後開啟資料夾
+
+請將檔名 "XXX.hard.txt" 或 "XXX.easy.txt" 複製到win64資料內
+然後啟動 "Make_Cytus2.exe"
+之後產生兩個檔案
+"XXX.v1plus" 可以複製內容至 Excel 監視內容
+"XXX.hard.txt.c2v0" 或 "XXX.easy.txt.c2v0" 則是 Cytus2_V0 格式的譜面檔。
+
+或者你是其他作業系統且有 Python3 則可以在同目錄中開啟命令視窗(cmd)輸入
+`python3 Make_Cytus2.py`
+//--------------------------------------------------------
+Download this repository and open folder
+
+plz copy file name "XXX.hard.txt" or "XXX.easy.txt" to win64 folder.
+and use "Make_Cytus2.exe" .
+after
+"XXX.v1plus" you can copy to Excel and click .
+"XXX.hard.txt.c2v0" or "XXX.easy.txt.c2v0" is Cytus2_V0 format flie .
+
+or if you computer OS is not Windows and have Python3,you can open Command window and run 
+`python3 Make_Cytus2.py`
+
+---
 ## 格式
 採用自定義格式，不過是從V2格式上延伸過來的    
 ![Imgur](https://i.imgur.com/5VCx1VR.png)    
