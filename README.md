@@ -1,7 +1,7 @@
 # Make_Cytus2
 製作Cytus2譜面用；Make Cytus2 charts。    
 
-基本上可以先用[Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:JCEXE/List_of_Cytus_simulation_programs:_2017_edition#Cytunity)對好時間跟位置後在輸出譜面並[將link重新綁好](https://cdn.discordapp.com/attachments/430987888042180610/431001210552582146/79e38aa80b706550.rar)後，再送來這邊作型態變換和變速。
+基本上可以先用[Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:JCEXE/List_of_Cytus_simulation_programs:_2017_edition#Cytunity)對好時間跟位置後在輸出譜面並[將link重新綁好](https://cdn.discordapp.com/attachments/430987888042180610/431001210552582146/79e38aa80b706550.rar)後，再送來這邊做型態變換和變速。
 
 First time you can use  [Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:JCEXE/List_of_Cytus_simulation_programs:_2017_edition#Cytunity) bind time and X axis position and hole time     
 after , move chart to TPV4.9 , change speed and note type and output flie.       
@@ -216,12 +216,12 @@ CHC -1 will change scan color(G) and print "speed down"
 作用的時間只能是掃線到上下邊界的時間，可容許一點點的誤差，不要超過一幕掃線時間的8分之一為佳。    
 
 此外 BPM作用時間 的部分可以用 TPV4.9 去自動生出來，請善加利用！    
-(看 C12 跟 H10 )    
+(看 C12 跟 H10 ， 左上角資料要填(C2~C4)，列位不夠可以自己拉)    
 
 if you want change scan line speed , you can use "BPM 560 10.273460"
 scan line speed will start 10.273460 second change.
 
 the time can use TPV4.9 column H get time
-(see C12 and H10 )
+(see C12 and H10 ， Top left data(C2~C4) need to be fill)
 
 ![Imgur](https://i.imgur.com/aO3yNcm.png)
