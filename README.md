@@ -3,7 +3,10 @@
 
 基本上可以先用[Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:JCEXE/List_of_Cytus_simulation_programs:_2017_edition#Cytunity)對好時間跟位置後在輸出譜面並[將link重新綁好](https://cdn.discordapp.com/attachments/430987888042180610/431001210552582146/79e38aa80b706550.rar)後，再送來這邊作型態變換和變速。
 
-first time you can use  [Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:JCEXE/List_of_Cytus_simulation_programs:_2017_edition#Cytunity) bind time and X axis position and hole time , after ,move chart to TPV4.9 , change speed and note type and       
+First time you can use  [Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:JCEXE/List_of_Cytus_simulation_programs:_2017_edition#Cytunity) bind time and X axis position and hole time     
+after , move chart to TPV4.9 , change speed and note type and output flie.       
+
+if you understand the readme , and want to chang the English explanation , plz open issue or fork_push there .
 
 ---
 ## 怎麼使用 how to use
@@ -53,6 +56,15 @@ if you not understand plz see [BPM_wiki](https://en.wikipedia.org/wiki/Tempo)
 **PAGE_SHIFT 1.799999**    
 //形式為浮點數 ， type=float    
 掃線開始的位置，雖然在Cytus2上無法用，但在製作V2譜面就有用了    
+如果 PAGN_SIZE 設 0.8，PAGE_SHIFT 設0.2     
+那便換出現在Y軸的0.25處，且掃線方向向上(藍線)    
+(PAGE_SHIFT少於PAGN_SIZE向上，反之向下)    
+0.25 = 0.2 / 0.8    
+
+如果要粉線且向下呢?    
+PAGE_SHIFT = 0.8(PAGN_SIZE) + 0.2(0.25 * 0.8)    
+PAGE_SHIFT = 1.0    
+
 in cytus1_V2 chart format is decision scan line direction and position    
 
 if you set it to 0, the scan line will start in chart down(y=0)     
@@ -70,14 +82,15 @@ direction↓ (link to pink line)
 //形式為浮點數 ， type=float    
 掃線每掃一幕(or屏)所需要的時間    
 every chart use how much time (second)    
-EX：PAGE_SIZE 0.857142 = every chart use 0.857142 second    
+EX：PAGE_SIZE 0.857142 = every page use 0.857142 second    
 
 
 **scan_line_direction_opposite 1**    
 //形式為整數 ， type=int ； 只能輸入0或1 (only 0 or 1)    
 //預設為0 ， Default 0    
 掃線初始方向，一般來說為0，但如果實際方向相反的話可以調為1，他會再反過來。    
-the scan line direction is reverse direction ? set "scan_line_direction_opposite 1" can reverse direction again    
+the scan line direction is reverse direction ?     
+set "scan_line_direction_opposite 1" can reverse direction again    
 
 
 **extension_of_time 0**    
@@ -87,14 +100,14 @@ the scan line direction is reverse direction ? set "scan_line_direction_opposite
 if you aware you all note time is to fast or to late some time    
 if to fast 4 second , use extension_of_time -4 will be all note time -4 second    
 if to late 3 second , use extension_of_time 3 will be all note time 3 second    
-usually is 0    
 
 
 **auto_fix_type 0**    
 //形式為整數 ， type=int ； 只能輸入0或1 (only 0 or 1)    
 //預設為0 ， Default 0    
 自動幫忙修正HOLD溢出邊界的問題，但不保證效果，預期是如果你的HOLD長度小於該幕的總長且很接近邊界，這時後會自動把該HOLD移到下一幕中，如果是HOLD長度大於該幕的總長則會把note型態變成LONG    
-auto_fix_type just set 0 or 1 , if 0 will be auto fix chart error , 1 will auto fix     
+auto_fix_type just set 0 or 1 , if 0 will not auto fix chart error , 1 will auto fix     
+
 but it just auto fix HOLD error    
 if HOLD time over to PAGE_SIZE will set the note type to LONG    
 if HOLD time not over PAGE_SIZE and over to page boundary , it will move the note to next page    
@@ -119,14 +132,14 @@ the song beat , usually is 4 , few is 3
 //預設為480 ， Default 480    
 這個我也不太清楚，但知道設480就對了，估計跟一幕的"質量"有關    
 ma..... , I do not understand ..... , set it 480 (O    
-maybe about page "quality"  ┐(´д`)┌    
+maybe about page "quality"   ┐(´д`)┌    
 
 
 **conversion_constant 60000000**    
 //形式為整數 ， type=int ；    
 //預設為60000000 ， Default 60000000    
 這個是 秒數s 與 tick 換算關係的轉換常數，一般來說不用改，但如果你發現一開始note的時間是準的，到後面越來越不準，則可以細部微調，或者先試試改成 59999940 看看，不行那就自己在微調。    
-如果後面越來越快，稍微加一點，越慢則減少一點    
+如果後面越來越快，稍微加一點，越慢則減少一點。    
 
 其公式為：
 BPM = 60000000 / value    
@@ -163,19 +176,24 @@ LINK 4 5
 (note型態)-(id)-(出現時間)-(出線時的x座標)-(持續時間)    
 (字串string)-(整數int)-(浮點數float)-(浮點數float)-(浮點數float)    
 
-**note型態**：    
+**note型態(type)**：    
 有 **NOTE、HOLD、LONG、SLIDE**    
 分別是 點、長條、黃色超級長條、切    
-然後 HOLD、LONG、SLIDE 是強制型態    
+然後 HOLD、LONG、SLIDE 是強制型態，可以用這個特性讓譜面更"繽紛"。    
 
-另外完全兼容V2格式，如果你想用出 HOLD 也是可以用    
+另外 **完全兼容Cytus1_V2格式** ，如果你想用出 HOLD 也是可以用    
 NOTE	6	11.499799	0.500000	0.754260    
 這種方式是可以接受的。    
 #### LINK 的格式如下：    
 (LINK)-(目標id)-(目標id)-(目標id)....    
 (字串string)-(整數int)-(整數int)-(整數int)...    
 
-這個東西會將所選中的 note **強制轉成 LINK 型態**，請務必注意此特性。    
+這個東西會將所選中的 note **強制轉成 LINK 型態！！！**，請務必注意此特性。    
+(最高優先權)
+
+if use LINK type the note will **forcibly reset type to NINK！！！**    
+(The highest rule)
+
 #### CHC 格式如下：    
 (CHC)-(變速方式)-(作用時間)    
 (字串string)-(整數int)-(浮點數float)    
@@ -198,8 +216,12 @@ CHC -1 will change scan color(G) and print "speed down"
 作用的時間只能是掃線到上下邊界的時間，可容許一點點的誤差，不要超過一幕掃線時間的8分之一為佳。    
 
 此外 BPM作用時間 的部分可以用 TPV4.9 去自動生出來，請善加利用！    
+(看 C12 跟 H10 )    
 
-if you want change scan line speed , you can use "BPM 560 10.125484"
-scan line speed will start 10.125484 second change.
+if you want change scan line speed , you can use "BPM 560 10.273460"
+scan line speed will start 10.273460 second change.
+
+the time can use TPV4.9 column H get time
+(see C12 and H10 )
 
 ![Imgur](https://i.imgur.com/aO3yNcm.png)
