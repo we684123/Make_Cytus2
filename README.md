@@ -152,7 +152,8 @@ s/tick(每tick對應秒數) = C1_PAGE_SIZE / 設每屏(幕)tick
 Conversion constant    
 how many second is how many tick    
 Conversion constant Default 60000000    
-if you 0~10 note time is precise , but end note(if all note=445 , end note is 435~445) not     
+
+if you 0\~10 note time is precise , but end note(if all note=445 , end note is 435\~445) not     
 you can reset conversion_constant     
 if end not time is to late , to add constant , to fast , to reduce constant .    
 
