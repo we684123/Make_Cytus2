@@ -97,11 +97,19 @@ set "scan_line_direction_opposite 1" can reverse direction again
 //形式為浮點數 ， type=float    
 //預設為0 ， Default 0    
 整體時間延遲或減少 如果為-3會全譜面的時間-3秒，4的話則全體+4秒    
+注意！如果你的 PAGE_SHIFT不等於0 或 不等於PAGN_SIZE的倍數(含一倍)    
+例如 PAGN_SIZE=0.8 然後 PAGE_SHIFT=1.6，那就不用用到這個，除非你原本的譜面時間就沒對準    
+然後如果不是是上述情況的話，extension_of_time的值會等於 PAGE_SHIFT%PAGN_SIZE(PAGE_SHIFT除PAGN_SIZE後取餘數)    
+這樣會把 PAGE_SHIFT 帶來的誤差修正回來    
 if you aware you all note time is to fast or to late some time    
 if to fast 4 second , use extension_of_time -4 will be all note time -4 second    
 if to late 3 second , use extension_of_time 3 will be all note time 3 second    
 
+!!!    
+if you PAGE_SHIFT (not equal 0) or (equal PAGN_SIZE*n(n is Integer))    
+extension_of_time will equal (PAGE_SHIFT%PAGN_SIZE(PAGE_SHIFT MOD PAGN_SIZE))    
 
+    
 **auto_fix_type 0**    
 //形式為整數 ， type=int ； 只能輸入0或1 (only 0 or 1)    
 //預設為0 ， Default 0    
