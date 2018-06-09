@@ -99,8 +99,9 @@ or if you computer OS is not Windows and have Python3,you can open Command windo
     整體時間延遲或減少 如果為-3會全譜面的時間-3秒，4的話則全體+4秒    
     注意！如果你的 PAGE_SHIFT不等於0 或 不等於PAGN_SIZE的倍數(含一倍)    
     例如 PAGN_SIZE=0.8 然後 PAGE_SHIFT=1.6，那就不用用到這個，除非你原本的譜面時間就沒對準    
-    然後如果不是是上述情況的話，extension_of_time的值會等於 PAGE_SHIFT%PAGN_SIZE(PAGE_SHIFT除PAGN_SIZE後取餘數)    
-    這樣會把 PAGE_SHIFT 帶來的誤差修正回來    
+
+    然後如果不是是上述情況的話，extension_of_time的值會等於 PAGE_SHIFT%PAGN_SIZE(PAGE_SHIFT除PAGN_SIZE後取餘數)，這樣會把 PAGE_SHIFT 帶來的誤差修正回來。    
+        
     if you aware you all note time is to fast or to late some time    
     if to fast 4 second , use extension_of_time -4 will be all note time -4 second    
     if to late 3 second , use extension_of_time 3 will be all note time 3 second    
@@ -149,7 +150,7 @@ or if you computer OS is not Windows and have Python3,you can open Command windo
     (type will reset "SLIDE"，x rerset 0.750000)    
 
     **如果用此方式轉換的，請注意下列狀況!!!**    
-    當你的note為下列狀況時，x(0.500123)並不會轉回(0.5)    
+    當你的note為下列狀況時，x(0.500123)並不會轉回(0.500000)    
     "SLIDE	5	10.499799	0.500123	0.000000"    
 
  - **format_version 0**    
@@ -274,7 +275,7 @@ you can use TPV4.9 column H get this
   - 請依照 Make_Cytus2 的提示修正問題，如果沒提示那就繼續往下看吧。
 
   - 請檢察你的 note 時間是不是 **"不是由小到大"**，通常會有這樣問題的譜都是從 [Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:JCEXE/List_of_Cytus_simulation_programs:_2017_edition#Cytunity) 生出的譜，請點 "[將link跟時間重新綁好](https://cdn.discordapp.com/attachments/430987888042180610/431001210552582146/79e38aa80b706550.rar)" 並用該工具修好譜面後再把設定補上，之後才用 Make_Cytus2 來轉譜。
-  - 請檢察你的譜面最上面13行設定是不是有照我方**規定順序排列**、有沒有按照格式規定去設置。
+  - 請檢察你的譜面最上面13行設定是不是有照我方**規定順序排列**、有沒有按照格式規定去設置。    
   (例如 auto_fix_type 只能設0和1的整數，或是名稱跟值沒有空白分開，像是"beat4"(X) "beat 4"(O)，還是你輸入的空白不是空白，而是TAB鍵)
 - Cytus2譜面撥放器?
   - 如何取得?    
