@@ -37,7 +37,7 @@ or if you computer OS is not Windows and have Python3,you can open Command windo
 ---
 ## Make_Cytus2格式 ; Make_Cytus2 format
 採用自定義格式，不過是從V2格式上延伸過來的    
-![Imgur](https://i.imgur.com/5VCx1VR.png)    
+![Imgur](https://i.imgur.com/drpHot2.png)    
 
  - **VERSION 3**    
     //形式為整數 ， type=int    
