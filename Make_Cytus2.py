@@ -609,19 +609,18 @@ def get_V2_data(V2_text):
             }
             data["note_list"].append(k)
         elif rt == 'LINK':
-            #下面註解留下是怕最後如果壞了還可以用老方法
-            #t = 'LINK 60 61 62 63 64 65 66 67 68 69 70 71 72 73 75'
-            #r = re.compile('\d+')
-            #r10 = r.findall(str(t))
-            #r = re.compile('\d+')
-            #j = r.findall(str(n[i]))
-            #j = n[i].split(' ')
+            # 下面註解留下是怕最後如果壞了還可以用老方法
+            # t = 'LINK 60 61 62 63 64 65 66 67 68 69 70 71 72 73 75'
+            # r = re.compile('\d+')
+            # r10 = r.findall(str(t))
+            # r = re.compile('\d+')
+            # j = r.findall(str(n[i]))
+            # j = n[i].split(' ')
 
             k = {
                 "type": "LINK",
                 "id_list": []
             }
-            del j[0]
             k["id_list"] = j
             data["link_list"].append(k)
         elif rt == 'CHC':
