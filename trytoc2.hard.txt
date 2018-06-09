@@ -5,6 +5,8 @@ PAGE_SIZE 0.857142
 scan_line_direction_opposite 1
 extension_of_time 0
 auto_fix_type 1
+change_type_to_LONG_form_x 0
+change_type_to_SLIDE_form_x 0
 format_version 0
 beat 4
 time_base 480
