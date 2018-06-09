@@ -122,35 +122,35 @@ or if you computer OS is not Windows and have Python3,you can open Command windo
 
 
  - **change_type_to_LONG_form_x**
- - **change_type_to_SLIDE_form_x**
+ - **change_type_to_SLIDE_form_x**    
     //形式為三位數整數 或者0，type= Three-digit int or 0;
     //預設為0(不作用) ， Default 0 (if 0 = not work)   
-    如果不想每次都手動換note type的話可以用這個，此會把符合設定的note x(X軸位置)值減去(設定值/1000000)，當作新的"x位置"，同時將該note的type轉為對應type。
-    這兩個 **設為0或不是3位整數時不作用!**。
+    如果不想每次都手動換note type的話可以用這個，此會把符合設定的note x(X軸位置)值減去(設定值/1000000)，當作新的"x位置"，同時將該note的type轉為對應type。    
+    這兩個 **設為0或不是3位整數時不作用!**。    
     The other methods can set note type to "SLIDE" or "LONG"    
 
-    
-    例如設定成 ; if you set like this
-    "change_type_to_LONG_form_x 123"
-    "change_type_to_SLIDE_form_x 456"
 
-    且有一個note為 ; and have a note
-    "NOTE 8 15.333210 0.500123 0.000000"
-    那麼因為他的x位置小數點後4位到後6位等於123，所以程式會把它當作
-    "LONG 8 15.333210 0.500000 0.000000" 去解讀。
-    (type變成LONG，x還原成 0.500000)
-    (type will reset "LONG"，x rerset 0.500000)
+    例如設定成 ; if you set like this    
+    "change_type_to_LONG_form_x 123"    
+    "change_type_to_SLIDE_form_x 456"    
 
-    而如果有另一個note為 ; and have a note
-    "NOTE 9 15.833210 0.750456 0.000000"
-    因為0.750456的456，所以解讀成
-    "SLIDE 8 15.333210 0.750000 0.000000"
-    (type變成SLIDE，x還原成 0.750000)
-    (type will reset "SLIDE"，x rerset 0.750000)
+    且有一個note為 ; and have a note    
+    "NOTE 8 15.333210 0.500123 0.000000"    
+    那麼因為他的x位置小數點後4位到後6位等於123，所以程式會把它當作    
+    "LONG 8 15.333210 0.500000 0.000000" 去解讀。    
+    (type變成LONG，x還原成 0.500000)    
+    (type will reset "LONG"，x rerset 0.500000)    
 
-    **如果用此方式轉換的，請注意下列狀況!!!**
-    當你的note為下列狀況時，x(0.500123)並不會轉回(0.5)
-    "SLIDE	5	10.499799	0.500123	0.000000"
+    而如果有另一個note為 ; and have a note    
+    "NOTE 9 15.833210 0.750456 0.000000"    
+    因為0.750456的456，所以解讀成    
+    "SLIDE 8 15.333210 0.750000 0.000000"    
+    (type變成SLIDE，x還原成 0.750000)    
+    (type will reset "SLIDE"，x rerset 0.750000)    
+
+    **如果用此方式轉換的，請注意下列狀況!!!**    
+    當你的note為下列狀況時，x(0.500123)並不會轉回(0.5)    
+    "SLIDE	5	10.499799	0.500123	0.000000"    
 
  - **format_version 0**    
     //形式為整數 ， type=int ；    
@@ -196,7 +196,7 @@ or if you computer OS is not Windows and have Python3,you can open Command windo
     you can reset conversion_constant     
     if end not time is to late , to add constant , to fast , to reduce constant .    
 
-//================================================    
+---    
 
 **譜面範例**    
 
@@ -277,16 +277,16 @@ you can use TPV4.9 column H get this
   - 請檢察你的譜面最上面13行設定是不是有照我方**規定順序排列**、有沒有按照格式規定去設置。
   (例如 auto_fix_type 只能設0和1的整數，或是名稱跟值沒有空白分開，像是"beat4"(X) "beat 4"(O)，還是你輸入的空白不是空白，而是TAB鍵)
 - Cytus2譜面撥放器?
-  - 如何取得?
-    原主人還沒釋出，請自行想辦法。
+  - 如何取得?    
+    原主人還沒釋出，請自行想辦法。    
   - 按play後動了一下但沒有繼續播放?
     - 先試著把我給"trytoc2.hard.txt"轉譜面後播放看看，如果可以播放，那可能是你的譜面有問題，如果不能播放，先檢查你的"Settings.txt"文件設定是否正確，要是還是不行，那你可以用0.55版撥放器試試看，因為此程式在做的時候是用0.55版播放、驗證，若真的是撥放器的問題請找撥放器原作者QQ。
     - 如果是**經由Make_Cytus2轉換的**Cytus2的譜面有問題，那...你可以開個issue並附上譜面檔案和問題描述(細節越詳細越好)，或直接看是否是程式的問題，然後順手幫忙解決(###
 - 這樣的製譜流程有點不順暢030...
   - 現在還沒有專屬製譜器就只能先這樣，雖然有打算做一個專屬製譜器，但課業繁重 短期內不可能了Orz。
   - 歡迎各位做一個CUI的Cytus2製譜器，我這專案已有提供部份數學公式(TPV and Make_Cytus2.py)，請自行取用。
-- The English readme i do not understand...; 這英文翻譯不OK...
-  ...我盡力了... Orz...
-  歡迎提供更好的翻譯。
-  I tried my best to translate  Orz...
-  maybe you will do fix translate, if you do ,very thank you!
+- The English readme i do not understand...; 這英文翻譯不OK...    
+  ...我盡力了... Orz...    
+  歡迎提供更好的翻譯。    
+  I tried my best to translate  Orz...    
+  maybe you will do fix translate, if you do ,very thank you!    
