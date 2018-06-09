@@ -1,7 +1,7 @@
 # Make_Cytus2
 製作Cytus2譜面用；Make Cytus2 charts。    
 
-基本上可以先用[Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:JCEXE/List_of_Cytus_simulation_programs:_2017_edition#Cytunity)對好時間跟位置後在輸出譜面並[將link重新綁好](https://cdn.discordapp.com/attachments/430987888042180610/431001210552582146/79e38aa80b706550.rar)後，再送來這邊做型態變換和變速。
+基本上可以先用[Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:JCEXE/List_of_Cytus_simulation_programs:_2017_edition#Cytunity)對好時間跟位置後在輸出譜面並[將link跟時間重新綁好](https://cdn.discordapp.com/attachments/430987888042180610/431001210552582146/79e38aa80b706550.rar)後，再送來這邊做型態變換和變速。
 
 First time you can use  [Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:JCEXE/List_of_Cytus_simulation_programs:_2017_edition#Cytunity) bind time and X axis position and hole time     
 after , move chart to TPV4.9 , change speed and note type and output flie.       
@@ -9,12 +9,12 @@ after , move chart to TPV4.9 , change speed and note type and output flie.
 if you understand the readme , and want to chang the English explanation , plz open issue or fork_push there .
 
 ---
-## 怎麼使用 how to use
+## 怎麼使用Make_Cytus2 ； how to use Make_Cytus2
 下載這個專案後開啟資料夾    
 
-請將檔名 "XXX.hard.txt" 或 "XXX.easy.txt" 複製到win64資料內    
+請將檔名 "XXX.hard.txt" 或 "XXX.easy.txt"(或是我提供的trytoc2.hard.txt) 複製到win64(依你的作業系統)資料內    
 然後啟動 "Make_Cytus2.exe"    
-之後產生兩個檔案    
+之後產生3個檔案    
 "XXX.v1plus" 可以複製內容至 Excel 監視內容    
 "XXX.c2v0plus" 可以看詳細的轉換狀態    
 "XXX.hard.txt.c2v0" 或 "XXX.easy.txt.c2v0" 則是 Cytus2_V0 格式的譜面檔。    
@@ -24,7 +24,7 @@ if you understand the readme , and want to chang the English explanation , plz o
 //--------------------------------------------------------    
 Download this repository and open folder    
 
-plz copy file name "XXX.hard.txt" or "XXX.easy.txt" to win64 folder.    
+plz copy file name "XXX.hard.txt" or "XXX.easy.txt" (or "trytoc2.hard.txt") to win64(or you are win32,mac) folder.    
 and use "Make_Cytus2.exe" .    
 after    
 "XXX.v1plus" you can copy to Excel and click error.    
@@ -35,7 +35,7 @@ or if you computer OS is not Windows and have Python3,you can open Command windo
 `python3 Make_Cytus2.py`
 
 ---
-## 格式
+## Make_Cytus2格式 ; Make_Cytus2 format
 採用自定義格式，不過是從V2格式上延伸過來的    
 ![Imgur](https://i.imgur.com/5VCx1VR.png)    
 
@@ -109,7 +109,7 @@ if to late 3 second , use extension_of_time 3 will be all note time 3 second
 if you PAGE_SHIFT (not equal 0) or (equal PAGN_SIZE*n(n is Integer))    
 extension_of_time will equal (PAGE_SHIFT%PAGN_SIZE(PAGE_SHIFT MOD PAGN_SIZE))    
 
-    
+
 **auto_fix_type 0**    
 //形式為整數 ， type=int ； 只能輸入0或1 (only 0 or 1)    
 //預設為0 ， Default 0    
@@ -119,6 +119,34 @@ auto_fix_type just set 0 or 1 , if 0 will not auto fix chart error , 1 will auto
 but it just auto fix HOLD error    
 if HOLD time over to PAGE_SIZE will set the note type to LONG    
 if HOLD time not over PAGE_SIZE and over to page boundary , it will move the note to next page    
+
+
+**change_type_to_LONG_form_x**
+**change_type_to_SLIDE_form_x**
+//形式為三位數整數 或者0，type= Three-digit int or 0;
+//預設為0(不作用) ， Default 0 (if 0 = not work)   
+如果不想每次都手動換note type的話可以用這個，此會把符合設定的note x(X軸位置)值減去(設定值/1000000)，當作新的"x位置"，同時將該note的type轉為對應type。
+這兩個 **設為0或不滿足3位數時不作用!**
+The other methods can set note type to "SLIDE" or "LONG"
+
+
+例如設定成 ; if you set like this
+"change_type_to_LONG_form_x 123"
+"change_type_to_SLIDE_form_x 456"
+
+且有一個note為 ; and have a note
+"NOTE 8 15.333210 0.500123 0.000000"
+那麼因為他的x位置小數點後4位到後6位等於123，所以程式會把它當作
+"LONG 8 15.333210 0.500000 0.000000" 去解讀。
+(type變成LONG，x還原成 0.500000)
+(type will reset "LONG"，x rerset 0.500000)
+
+而如果有另一個note為 ; and have a note
+"NOTE 9 15.833210 0.750456 0.000000"
+因為0.750456的456，所以解讀成
+"SLIDE 8 15.333210 0.750000 0.000000"
+(type變成SLIDE，x還原成 0.750000)
+(type will reset "SLIDE"，x rerset 0.750000)
 
 
 **format_version 0**    
@@ -230,7 +258,32 @@ CHC -1 will change scan color(G) and print "speed down"
 if you want change scan line speed , you can use "BPM 560 10.273460"
 scan line speed will start 10.273460 second change.
 
-the time can use TPV4.9 column H get time
+How to get scan_line_boundary_time?    
+you can use TPV4.9 column H get this    
 (see C12 and H10 ， Top left data(C2~C4) need to be fill)
 
 ![Imgur](https://i.imgur.com/aO3yNcm.png)
+
+---
+## 常見問題 Q&A
+
+- 轉譜失敗?
+  - 請依照 Make_Cytus2 的提示修正問題，如果沒提示那就繼續往下看吧。
+
+  - 請檢察你的 note 時間是不是 **"不是由小到大"**，通常會有這樣問題的譜都是從 [Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:JCEXE/List_of_Cytus_simulation_programs:_2017_edition#Cytunity) 生出的譜，請點 "[將link跟時間重新綁好](https://cdn.discordapp.com/attachments/430987888042180610/431001210552582146/79e38aa80b706550.rar)" 並用該工具修好譜面後再把設定補上，之後才用 Make_Cytus2 來轉譜。
+  - 請檢察你的譜面最上面11行是不是有照我方**規定順序排列**、有沒有按照格式規定去設置。
+  (例如 auto_fix_type 只能設0和1的整數，或是名稱跟值沒有空白分開，像是"beat4"(X) "beat 4"(O)，還是你輸入的空白不是空白，而是TAB鍵)
+- Cytus2譜面撥放器?
+  - 如何取得?
+    原主人還沒釋出，請自行想辦法。
+  - 按play後動了一下但沒有繼續播放?
+    - 先試著把我給"trytoc2.hard.txt"轉譜面後播放看看，如果可以播放，那可能是你的譜面有問題，如果不能播放，先檢查你的"Settings.txt"文件設定是否正確，要是還是不行，那你可以用0.55版撥放器試試看，因為此程式在做的時候是用0.55版播放、驗證，若真的是撥放器的問題請找撥放器原作者QQ。
+    - 如果是**經由Make_Cytus2轉換的**Cytus2的譜面有問題，那...你可以開個issue並附上譜面檔案和問題描述(細節越詳細越好)，或直接看是否是程式的問題，然後順手幫忙解決(###
+- 這樣的製譜流程有點不順暢030...
+  - 現在還沒有專屬製譜器就只能先這樣，雖然有打算做一個專屬製譜器，但課業繁重 短期內不可能了Orz。
+  - 歡迎各位做一個CUI的Cytus2製譜器，我這專案已有提供部份數學公式(TPV and Make_Cytus2.py)，請自行取用。
+- The English readme i do not understand...; 這英文翻譯不OK...
+  ...我盡力了... Orz...
+  歡迎提供更好的翻譯。
+  I tried my best to translate  Orz...
+  maybe you will do fix translate, if you do ,very thank you!
