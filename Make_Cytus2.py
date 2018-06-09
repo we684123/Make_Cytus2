@@ -575,22 +575,30 @@ def get_V2_data(V2_text):
         # 開始處理標頭以外的東東
         if rt == 'NOTE':
             type = "NOTE"
-
+            x = float(j[3])
             # 設定用x設定的SLIDE x
-            slide = change_type_to_SLIDE_form_x
+            slide = int(n[8].split(" ")[-1])
             if slide>100 and slide<1000 and slide!=0:
-                x = change_type_form_x(float(j[3]),slide)
+
                 # 設定用x設定的SLIDE type
-                if int(float(j[3])*1000000%1000) == slide:
+                #w = str(float(j[3]))
+                #w = str(0.200456)[-3:-1]
+                #int(1.900456)
+                if int(float(j[3])*1000000)%1000 == slide:
                     type = "SLIDE"
+                    x = change_type_form_x(float(j[3]),slide)
+                    #x = int(x*1000000 - slide)/1000000
+                    # slide = 456
 
             # 設定用x設定的LONG x
-            long = change_type_to_LONG_form_x
+            long = int(n[7].split(" ")[-1])
             if long>100 and long<1000 and long!=0:
-                x = change_type_form_x(float(j[3]),long)
+
                 # 設定用x設定的LONG type
                 if int(float(j[3])*1000000%1000) == long:
+                    x = change_type_form_x(float(j[3]),long)
                     type = "LONG"
+                    #x = x - (long*0.000001)
 
             k = {
                 "type": type,
@@ -660,15 +668,17 @@ def get_V2_data(V2_text):
     return data
 # -------------------------------------------------------------------------------
 def change_type_form_x(x,v):
-    x = float(x)
-    # x = 0.165843
-    if int(x*1000000%1000) == v:
-        x = x-(v*0.000001)
-        return x
+    x2 = str(x)
+    # x = 0.165456
+    p = x2.find('.')
+    x3 = x2[(p+4):(p+7)]
+    if x3 == str(v):
+        x4 = float((str(x2[0:(p+4)]) + '000'))
+        return x4
     else:
         return x
-# change_type_form_x(00.123456,456)
-# 0.123
+# change_type_form_x(0.287456,456)
+# v = 456
 
 def get_type(t):
     #後來才想到正則去解，但算了 目前能用且沒多大的影響
@@ -906,10 +916,46 @@ except Exception as e:
     print("http://bit.ly/2ssEDwt")
     print("失敗原因:")
     print(e)
+'''
+mypath = os.getcwd()
+onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+# i=4
+for i in range(0, len(onlyfiles)):
+    j = str(onlyfiles[i])
+    fliename = j
+    if get_extension(j, -1) == 'txt' and (get_extension(j, -2) == 'hard' or get_extension(j, -2) == 'esey'):
+        V2_fliename = fliename
+        V2_data = get_V2_data(get_V2_text(j))
+        if V2_data == 99999:
+            pass
+        # pprint(V2_data)
+        # V2_data.clear()
+        V2_data = V2_to_C2(V2_data)
+        # 至此V2_data為正常V2轉C2V0的所有所需，且click_error、fix_hold_error的部分暫緩
+        # 現在將在此基礎上改變線速、note的page_index
+        # (為這樣做的原因是因為原本沒打算做成能製作支援變速的Cytus2的譜的)
+        # 原本只是單純的把V2譜轉成Cytus2而已)
+        V2_data = chang_CHC_BPM(V2_data)
 
+        # 進行錯誤偵測，並補上資料
+        V2_data = click_error(V2_data)
+        if V2_data["auto_fix_type"] == 1:
+            V2_data = fix_hold_error(V2_data)  # 要改?
+
+        C2_data = json.dumps(creat_C2(V2_data))
+        C2_data = re.sub(' ', "", C2_data)
+        C2_data2 = json.dumps(creat_C2V0plus(V2_data))
+        C2_data2 = re.sub(' ', "", C2_data2)
+
+        output_V1plus(V2_fliename, V2_data)
+        result1 = creat_flie((V2_fliename + '.c2v0plus'), C2_data2)
+        result2 = creat_flie((V2_fliename + '.c2v0'), C2_data)
+        if result1 == 0 and result2 == 0:
+            print("轉換成功! Success!")
 
 
 
 # V2_text = get_V2_text(j)
 # pprint(V2_data)
 # pprint(get_V2_text(j))
+'''
