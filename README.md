@@ -6,7 +6,7 @@
 First time you can use  [Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:JCEXE/List_of_Cytus_simulation_programs:_2017_edition#Cytunity) bind time and X axis position and hole time     
 after , move chart to TPV4.9 , change speed and note type and output flie.       
 
-if you understand the readme , and want to chang the English explanation , plz open issue or fork_push there .
+if you understand the readme , and want to chang the English explanation , plz open issue or fork_push here .
 
 ---
 ## 怎麼使用Make_Cytus2 ； how to use Make_Cytus2
@@ -101,7 +101,7 @@ or if you computer OS is not Windows and have Python3,you can open Command windo
     例如 PAGN_SIZE=0.8 然後 PAGE_SHIFT=1.6，那就不用用到這個，除非你原本的譜面時間就沒對準    
 
     然後如果不是是上述情況的話，extension_of_time的值會等於 PAGE_SHIFT%PAGN_SIZE(PAGE_SHIFT除PAGN_SIZE後取餘數)，這樣會把 PAGE_SHIFT 帶來的誤差修正回來。    
-        
+
     if you aware you all note time is to fast or to late some time    
     if to fast 4 second , use extension_of_time -4 will be all note time -4 second    
     if to late 3 second , use extension_of_time 3 will be all note time 3 second    
