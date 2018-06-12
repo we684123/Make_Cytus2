@@ -48,7 +48,8 @@ or if you computer OS is not Windows and have Python3,you can open Command windo
 
  - **BPM 280**    
     //形式為整數 ， type=int    
-    歌曲的BPM，用來調整速度    
+    這一行在Cytus1V2中是控制譜面左右兩邊黑色區塊跳動的速度。
+    **在13行以後的歌曲的"BPM"才是用來調整速度**    
     you song how many beats in any 60 second    
     if you not understand plz see [BPM_wiki](https://en.wikipedia.org/wiki/Tempo)    
 
