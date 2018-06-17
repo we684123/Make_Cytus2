@@ -1,0 +1,1 @@
+pyinstaller -F --icon=Make_Cytus2_icon.ico Make_Cytus2.py

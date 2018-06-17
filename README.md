@@ -292,3 +292,9 @@ you can use TPV4.9 column H get this
   歡迎提供更好的翻譯。    
   I tried my best to translate  Orz...    
   maybe you will do fix translate, if you do ,very thank you!    
+
+---
+## 版本資訊    
+2018/06/17 -    
+- 加入"檢查錯誤並PO出"、修復"get_new_page_list"、移除mac執行檔(有更新py2.7的Make_Cytus2)    
+- eee錯誤次數未顯現，除錯架構可以在更好(之後看看怎麼改)    
