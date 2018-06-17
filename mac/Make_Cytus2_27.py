@@ -670,16 +670,28 @@ def get_new_page_list(V2_data):
 			break
 			# set_bpm[3]
 		# print("l = ",l)
+<<<<<<< HEAD
 		near = float(set_bpm[l + 1]["time"]) / (o_page_time * proportion_to_tick)
 		# near 是一開始到第一個"變BPM"要生的幕數，
+=======
+		near = float(set_bpm[l + 1]["time"]) / o_page_time
+>>>>>>> dev
 		if round(near % 1, 1):
 			w = 1
 		else:
 			w = 0
+<<<<<<< HEAD
 		v = int(near) + w # 有多的要加1幕
 
 		for k in range(v): # 開始生"幕"
 			# print("k = ",k)
+=======
+		v = int(near) + w
+		now_bpm = set_bpm[l]["BPM"]
+		for k in range(v):
+			# print("k = ",k)
+			proportion = O_bpm / now_bpm
+>>>>>>> dev
 			start_tick = end_tick
 			end_tick = end_tick + (page_base * proportion_to_tick)
 			i = end_tick

@@ -835,6 +835,7 @@ def reset_page_index(V2_data, page_list):
     while i < len(V2_data["note_list"]):
         cut = V2_data["note_list"]
         x = cut[i]["C2_tick"]
+<<<<<<< HEAD
         logging.debug("page_list_pointer = " + str(page_list_pointer))
         logging.debug("i =" + str(i))
 
@@ -845,6 +846,25 @@ def reset_page_index(V2_data, page_list):
         logging.debug("ed =" + str(ed))
         logging.debug(str(x < ed and x > st))
         logging.debug("-----------------------")
+=======
+        #print("page_list_pointer = " + str(page_list_pointer))
+        #print("i =" + str(i))
+        #logging.debug("page_list_pointer = " + str(page_list_pointer))
+        #logging.debug("i =" + str(i))
+
+        st = page_list[page_list_pointer]["start_tick"]
+        ed = page_list[page_list_pointer]["end_tick"]
+        #print("st = " + str(st))
+        #print("x =" + str(x))
+        #print("ed =" + str(ed))
+        #print(x < ed and x > st)
+        # print("-----------------------")
+        #logging.debug("st = " + str(st))
+        #logging.debug("x =" + str(x))
+        #logging.debug("ed =" + str(ed))
+        #logging.debug(str(x < ed and x > st))
+        # logging.debug("-----------------------")
+>>>>>>> dev
         if x <= ed and x > st:
             cut[i]['C2_page_index'] = page_list_pointer
             cut[i]['start_tick'] = st
@@ -938,7 +958,12 @@ def Make_Cytus2():
         if get_extension(j, -1) == 'txt' and (get_extension(j, -2) == 'hard' or get_extension(j, -2) == 'esey'):
             V2_fliename = fliename
             V2_text = get_V2_text(j)
+<<<<<<< HEAD
             logging.info("轉換對象(Conversion object):" + fliename)
+=======
+            # logging.info("轉換對象(Conversion object):" + fliename)
+            print("轉換對象(Conversion object):" + fliename)
+>>>>>>> dev
             carry_on = check_settings(V2_text)  # [true or false,error text]
             if carry_on[0]:
                 KeepOn_and_V2Data = get_V2_data(V2_text)
@@ -977,7 +1002,13 @@ def Make_Cytus2():
 
 # ======================================================================
 try:
+<<<<<<< HEAD
     logging.basicConfig(level=logging.DEBUG)
+=======
+    # logging.basicConfig(level=logging.DEBUG)
+    # logging.basicConfig(level=logging.INFO)
+    # logging一用整個效能大幅降低 怕.png 找不到取代模組舊只能自幹了
+>>>>>>> dev
     Make_Cytus2()
 except Exception as e:
     print('...天曉的怎麼失敗了QAQ，不過你可以看這個網址下面Q&A，看看是不是都符合要求')
