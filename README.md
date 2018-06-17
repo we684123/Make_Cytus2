@@ -1,4 +1,4 @@
-# Make_Cytus2
+# Make_Cytus2 暫時壞了... 修理中.....
 製作Cytus2譜面用；Make Cytus2 charts。    
 
 基本上可以先用[Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:JCEXE/List_of_Cytus_simulation_programs:_2017_edition#Cytunity)對好時間跟位置後在輸出譜面並[將link跟時間重新綁好](https://cdn.discordapp.com/attachments/430987888042180610/431001210552582146/79e38aa80b706550.rar)後，再送來這邊做型態變換和變速。
