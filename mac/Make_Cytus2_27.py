@@ -661,27 +661,24 @@ def get_new_page_list(V2_data):
 					'time': end_time, 'type': 'BPM'})  # 插入最後的BPM較好處理
 	page_list = []
 	page_id = 0
-	# l=1
-	for l in range(0, len(set_bpm)): # 按變BPM的批次處理page_list
-		now_bpm = set_bpm[l]["BPM"]
-		proportion_to_tick = O_bpm / now_bpm #生成endtick的比例
-		#proportion_to_list = now_bpm / O_bpm #生成所需list的比例
-		if l >= (len(set_bpm) - 1): # 沒了 跳離
+	# l=0
+	for l in range(0, len(set_bpm)):
+		if l >= (len(set_bpm) - 1):
 			break
 			# set_bpm[3]
 		# print("l = ",l)
-		near = float(set_bpm[l + 1]["time"]) / (o_page_time * proportion_to_tick)
-		# near 是一開始到第一個"變BPM"要生的幕數，
+		near = float(set_bpm[l + 1]["time"]) / o_page_time
 		if round(near % 1, 1):
 			w = 1
 		else:
 			w = 0
-		v = int(near) + w # 有多的要加1幕
-
-		for k in range(v): # 開始生"幕"
+		v = int(near) + w
+		now_bpm = set_bpm[l]["BPM"]
+		for k in range(v):
 			# print("k = ",k)
+			proportion = O_bpm / now_bpm
 			start_tick = end_tick
-			end_tick = end_tick + (page_base * proportion_to_tick)
+			end_tick = end_tick + (page_base * proportion)
 			i = end_tick
 			page_list_template = {
 				"start_tick": int(start_tick),
