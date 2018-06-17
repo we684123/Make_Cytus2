@@ -425,7 +425,7 @@ def supplement_C2noteType_ToAllNote(V2_data_Bind_sup):
 
 def supplement_C2noteType_ToLinkBody(V2_data_Bind_sup):
 	for i in range(0, len(V2_data_Bind_sup["link_list"])):
-		link_len = len(V2_data["link_list"][i]["id_list"])
+		link_len = len(V2_data_Bind_sup["link_list"][i]["id_list"])
 		for j in range(0, link_len):
 			id = int(V2_data_Bind_sup["link_list"][i]["id_list"][j])
 			V2_data_Bind_sup["note_list"][id]["C2_type"] = 4

@@ -450,7 +450,7 @@ def supplement_C2noteType_ToAllNote(V2_data_Bind_sup):
 
 def supplement_C2noteType_ToLinkBody(V2_data_Bind_sup):
     for i in range(0, len(V2_data_Bind_sup["link_list"])):
-        link_len = len(V2_data["link_list"][i]["id_list"])
+        link_len = len(V2_data_Bind_sup["link_list"][i]["id_list"])
         for j in range(0, link_len):
             id = int(V2_data_Bind_sup["link_list"][i]["id_list"][j])
             V2_data_Bind_sup["note_list"][id]["C2_type"] = 4
@@ -979,10 +979,12 @@ def Make_Cytus2():
 
 
 # ======================================================================
+'''
+# logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.INFO)
+# logging一用整個效能大幅降低 怕.png 找不到取代模組舊只能自幹了
+'''
 try:
-    # logging.basicConfig(level=logging.DEBUG)
-    # logging.basicConfig(level=logging.INFO)
-    # logging一用整個效能大幅降低 怕.png 找不到取代模組舊只能自幹了
     Make_Cytus2()
 except Exception as e:
     print('...天曉的怎麼失敗了QAQ，不過你可以看這個網址下面Q&A，看看是不是都符合要求')
