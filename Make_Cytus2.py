@@ -772,28 +772,23 @@ def get_new_page_list(V2_data):
     page_list = []
     page_id = 0
     # l=0
-    for l in range(0, len(set_bpm)):  # 按變BPM的批次處理page_list
-        now_bpm = set_bpm[l]["BPM"]
-        proportion_to_tick = O_bpm / now_bpm  # 生成endtick的比例
-        proportion_to_list = now_bpm / O_bpm  # 生成所需list的比例
-        if l >= (len(set_bpm) - 1):  # 沒了 跳離
+    for l in range(0, len(set_bpm)):
+        if l >= (len(set_bpm) - 1):
             break
             # set_bpm[3]
         # print("l = ",l)
-        difference_time = (
-            float(set_bpm[l + 1]["time"]) - float(set_bpm[l]["time"]))
-        near = difference_time / (o_page_time * proportion_to_tick)
-        # near 是一開始到第一個"變BPM"要生的幕數，
+        near = float(set_bpm[l + 1]["time"]) / o_page_time
         if round(near % 1, 1):
             w = 1
         else:
             w = 0
-        v = int(near) + w  # 有多的要加1幕
-
-        for k in range(v):  # 開始生"幕"
+        v = int(near) + w
+        now_bpm = set_bpm[l]["BPM"]
+        for k in range(v):
             # print("k = ",k)
+            proportion = O_bpm / now_bpm
             start_tick = end_tick
-            end_tick = end_tick + (page_base * proportion_to_tick)
+            end_tick = end_tick + (page_base * proportion)
             i = end_tick
             page_list_template = {
                 "start_tick": int(start_tick),
@@ -835,18 +830,6 @@ def reset_page_index(V2_data, page_list):
     while i < len(V2_data["note_list"]):
         cut = V2_data["note_list"]
         x = cut[i]["C2_tick"]
-<<<<<<< HEAD
-        logging.debug("page_list_pointer = " + str(page_list_pointer))
-        logging.debug("i =" + str(i))
-
-        st = page_list[page_list_pointer]["start_tick"]
-        ed = page_list[page_list_pointer]["end_tick"]
-        logging.debug("st = " + str(st))
-        logging.debug("x =" + str(x))
-        logging.debug("ed =" + str(ed))
-        logging.debug(str(x < ed and x > st))
-        logging.debug("-----------------------")
-=======
         #print("page_list_pointer = " + str(page_list_pointer))
         #print("i =" + str(i))
         #logging.debug("page_list_pointer = " + str(page_list_pointer))
@@ -864,7 +847,6 @@ def reset_page_index(V2_data, page_list):
         #logging.debug("ed =" + str(ed))
         #logging.debug(str(x < ed and x > st))
         # logging.debug("-----------------------")
->>>>>>> dev
         if x <= ed and x > st:
             cut[i]['C2_page_index'] = page_list_pointer
             cut[i]['start_tick'] = st
@@ -958,12 +940,8 @@ def Make_Cytus2():
         if get_extension(j, -1) == 'txt' and (get_extension(j, -2) == 'hard' or get_extension(j, -2) == 'esey'):
             V2_fliename = fliename
             V2_text = get_V2_text(j)
-<<<<<<< HEAD
-            logging.info("轉換對象(Conversion object):" + fliename)
-=======
             # logging.info("轉換對象(Conversion object):" + fliename)
             print("轉換對象(Conversion object):" + fliename)
->>>>>>> dev
             carry_on = check_settings(V2_text)  # [true or false,error text]
             if carry_on[0]:
                 KeepOn_and_V2Data = get_V2_data(V2_text)
@@ -1002,13 +980,9 @@ def Make_Cytus2():
 
 # ======================================================================
 try:
-<<<<<<< HEAD
-    logging.basicConfig(level=logging.DEBUG)
-=======
     # logging.basicConfig(level=logging.DEBUG)
     # logging.basicConfig(level=logging.INFO)
     # logging一用整個效能大幅降低 怕.png 找不到取代模組舊只能自幹了
->>>>>>> dev
     Make_Cytus2()
 except Exception as e:
     print('...天曉的怎麼失敗了QAQ，不過你可以看這個網址下面Q&A，看看是不是都符合要求')
