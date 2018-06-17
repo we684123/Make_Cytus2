@@ -4,6 +4,7 @@ import os
 from pprint import pprint
 import json
 import re
+import logging
 
 
 def creat_flie(fliename, text):
@@ -34,43 +35,44 @@ def creat_C2(V2_data):
     return C2_data
 #y = creat_note_list(V2_data)
 
+
 def check_settings(V2_text):
     error_txt = ''
-    error_txt += check_settings_title(V2_text,error_txt)
+    error_txt += check_settings_title(V2_text, error_txt)
     #error_txt += check_settings_note(V2_text,error_txt)
 
     if error_txt == "":
         tf = True
     else:
         tf = False
-    return [tf,error_txt]
+    return [tf, error_txt]
 
 
-
-def check_settings_title(V2_text,error_txt):
+def check_settings_title(V2_text, error_txt):
     n = V2_text.split("\n")
     textlist = [
-    "VERSION",
-    "BPM",
-    "PAGE_SHIFT",
-    "PAGE_SIZE",
-    "scan_line_direction_opposite",
-    "extension_of_time",
-    "auto_fix_type",
-    "change_type_to_LONG_form_x",
-    "change_type_to_SLIDE_form_x",
-    "format_version",
-    "beat",
-    "time_base",
-    "conversion_constant",
+        "VERSION",
+        "BPM",
+        "PAGE_SHIFT",
+        "PAGE_SIZE",
+        "scan_line_direction_opposite",
+        "extension_of_time",
+        "auto_fix_type",
+        "change_type_to_LONG_form_x",
+        "change_type_to_SLIDE_form_x",
+        "format_version",
+        "beat",
+        "time_base",
+        "conversion_constant",
     ]
 
-    for i in range(0,len(textlist)):
+    for i in range(0, len(textlist)):
         t = n[i].split(" ")[0]
-        if textlist[i] != t :
+        if textlist[i] != t:
             error_txt += (textlist[i] + " 遺失或打錯(lose or error)\n")
 
     return error_txt
+
 
 def creat_note_list(V2_data):
     note_list = []
@@ -558,8 +560,8 @@ def get_V2_data(V2_text):
         "scan_line_direction_opposite": int(n[4].split(" ")[-1]),
         "extension_of_time": float(n[5].split(" ")[-1]),
         "auto_fix_type": int(n[6].split(" ")[-1]),
-        "change_type_to_LONG_form_x":int(n[7].split(" ")[-1]),
-        "change_type_to_SLIDE_form_x":int(n[8].split(" ")[-1]),
+        "change_type_to_LONG_form_x": int(n[7].split(" ")[-1]),
+        "change_type_to_SLIDE_form_x": int(n[8].split(" ")[-1]),
         "format_version": int(n[9].split(" ")[-1]),
         "beat": int(n[10].split(" ")[-1]),
         "time_base": int(n[11].split(" ")[-1]),
@@ -583,33 +585,33 @@ def get_V2_data(V2_text):
     u.index('y')
     '''
 
-    eee = 0 # 錯誤的次數
+    eee = 0  # 錯誤的次數
     for i in range(ctrl_line, len(n)):
         if n[i] == '':
             continue
         rt = get_type(n[i])
-        rt = rt.upper() #通通轉大寫，容錯率up~
+        rt = rt.upper()  # 通通轉大寫，容錯率up~
         # print(i)
         # print(rt)
         # print("-------")
 
-        #預處理，刪同樣的code
+        # 預處理，刪同樣的code
         isin = 'NOTECHCBPMHOLDLONGSLIDE'
 
         if rt == 'LINK':
-            #該方法修正了LINK有2個空白連在一起會出事的問題
+            # 該方法修正了LINK有2個空白連在一起會出事的問題
             r = re.compile('\d+')
             j = r.findall(str(n[i]))
         elif rt in isin and rt != '':
-            #該方式可直接從excel複製進來就能直接轉
-            r1 = re.sub(' ','',str(n[i]))
+            # 該方式可直接從excel複製進來就能直接轉
+            r1 = re.sub(' ', '', str(n[i]))
             j = r1.split('\t')
         else:
-            eee += 1 # 錯誤次數+1
+            eee += 1  # 錯誤次數+1
             print("type錯誤!請修正後再來，以下詳情：")
             print("type erroe! plz fix this and try again, error detailed:")
             print("出錯行數 ; error line :")
-            print(i+1)
+            print(i + 1)
             print("錯誤的內容 ; error text")
             print(n[i])
 
@@ -619,25 +621,25 @@ def get_V2_data(V2_text):
             x = float(j[3])
             # 設定用x設定的SLIDE x
             slide = int(n[8].split(" ")[-1])
-            if slide>100 and slide<1000 and slide!=0:
+            if slide > 100 and slide < 1000 and slide != 0:
 
                 # 設定用x設定的SLIDE type
                 # w = str(float(j[3]))
                 # w = str(0.200456)[-3:-1]
                 # int(1.900456)
-                if int(float(j[3])*1000000)%1000 == slide:
+                if int(float(j[3]) * 1000000) % 1000 == slide:
                     type = "SLIDE"
-                    x = change_type_form_x(float(j[3]),slide)
+                    x = change_type_form_x(float(j[3]), slide)
                     #x = int(x*1000000 - slide)/1000000
                     # slide = 456
 
             # 設定用x設定的LONG x
             long = int(n[7].split(" ")[-1])
-            if long>100 and long<1000 and long!=0:
+            if long > 100 and long < 1000 and long != 0:
 
                 # 設定用x設定的LONG type
-                if int(float(j[3])*1000000%1000) == long:
-                    x = change_type_form_x(float(j[3]),long)
+                if int(float(j[3]) * 1000000 % 1000) == long:
+                    x = change_type_form_x(float(j[3]), long)
                     type = "LONG"
                     # x = x - (long*0.000001)
 
@@ -705,25 +707,28 @@ def get_V2_data(V2_text):
                 "hold": float(j[4])
             }
             data["note_list"].append(k)
-    if eee != 0 :
-        return [False,eee]
-    return [True,data]
+    if eee != 0:
+        return [False, eee]
+    return [True, data]
 # -------------------------------------------------------------------------------
-def change_type_form_x(x,v):
+
+
+def change_type_form_x(x, v):
     x2 = str(x)
     # x = 0.165456
     p = x2.find('.')
-    x3 = x2[(p+4):(p+7)]
+    x3 = x2[(p + 4):(p + 7)]
     if x3 == str(v):
-        x4 = float((str(x2[0:(p+4)]) + '000'))
+        x4 = float((str(x2[0:(p + 4)]) + '000'))
         return x4
     else:
         return x
 # change_type_form_x(0.287456,456)
 # v = 456
 
+
 def get_type(t):
-    #後來才想到正則去解，但算了 目前能用且沒多大的影響
+    # 後來才想到正則去解，但算了 目前能用且沒多大的影響
     # print(t)
     # print(type(t))
     s = ""
@@ -766,24 +771,26 @@ def get_new_page_list(V2_data):
                     'time': end_time, 'type': 'BPM'})  # 插入最後的BPM較好處理
     page_list = []
     page_id = 0
-    # l=1
-    for l in range(0, len(set_bpm)): # 按變BPM的批次處理page_list
+    # l=0
+    for l in range(0, len(set_bpm)):  # 按變BPM的批次處理page_list
         now_bpm = set_bpm[l]["BPM"]
-        proportion_to_tick = O_bpm / now_bpm #生成endtick的比例
-        #proportion_to_list = now_bpm / O_bpm #生成所需list的比例
-        if l >= (len(set_bpm) - 1): # 沒了 跳離
+        proportion_to_tick = O_bpm / now_bpm  # 生成endtick的比例
+        proportion_to_list = now_bpm / O_bpm  # 生成所需list的比例
+        if l >= (len(set_bpm) - 1):  # 沒了 跳離
             break
             # set_bpm[3]
         # print("l = ",l)
-        near = float(set_bpm[l + 1]["time"]) / (o_page_time * proportion_to_tick)
+        difference_time = (
+            float(set_bpm[l + 1]["time"]) - float(set_bpm[l]["time"]))
+        near = difference_time / (o_page_time * proportion_to_tick)
         # near 是一開始到第一個"變BPM"要生的幕數，
         if round(near % 1, 1):
             w = 1
         else:
             w = 0
-        v = int(near) + w # 有多的要加1幕
+        v = int(near) + w  # 有多的要加1幕
 
-        for k in range(v): # 開始生"幕"
+        for k in range(v):  # 開始生"幕"
             # print("k = ",k)
             start_tick = end_tick
             end_tick = end_tick + (page_base * proportion_to_tick)
@@ -828,16 +835,16 @@ def reset_page_index(V2_data, page_list):
     while i < len(V2_data["note_list"]):
         cut = V2_data["note_list"]
         x = cut[i]["C2_tick"]
-        # print("page_list_pointer = ",page_list_pointer)
-        # print("i =", i)
+        logging.debug("page_list_pointer = " + str(page_list_pointer))
+        logging.debug("i =" + str(i))
 
         st = page_list[page_list_pointer]["start_tick"]
         ed = page_list[page_list_pointer]["end_tick"]
-        # print("st =", st)
-        # print("x =", x)
-        # print("ed =", ed)
-        # print(x < ed and x > st)
-        # print("-----------------------")
+        logging.debug("st = " + str(st))
+        logging.debug("x =" + str(x))
+        logging.debug("ed =" + str(ed))
+        logging.debug(str(x < ed and x > st))
+        logging.debug("-----------------------")
         if x <= ed and x > st:
             cut[i]['C2_page_index'] = page_list_pointer
             cut[i]['start_tick'] = st
@@ -905,7 +912,7 @@ def set_CHC(V2_data):
         if CHC_list[i]["mode"] == 1:
             type = 0
             args = 'R'
-        else: # 有點小危險
+        else:  # 有點小危險
             type = 1
             args = 'G'
 
@@ -920,8 +927,7 @@ def set_CHC(V2_data):
     return event_order_list
 
 
-# ======================================================================
-try:
+def Make_Cytus2():
     mypath = os.getcwd()
     onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     # i=4
@@ -932,14 +938,14 @@ try:
         if get_extension(j, -1) == 'txt' and (get_extension(j, -2) == 'hard' or get_extension(j, -2) == 'esey'):
             V2_fliename = fliename
             V2_text = get_V2_text(j)
-            print("轉換對象(Conversion object):"+fliename)
+            logging.info("轉換對象(Conversion object):" + fliename)
             carry_on = check_settings(V2_text)  # [true or false,error text]
             if carry_on[0]:
                 KeepOn_and_V2Data = get_V2_data(V2_text)
-                if not KeepOn_and_V2Data[0] :
+                if not KeepOn_and_V2Data[0]:
                     input("輸入enter結束!")
                     break
-                V2_data = KeepOn_and_V2Data[1]
+                V2_data = KeepOn_and_V2Data[1].copy()
                 # pprint(V2_data)
                 # V2_data.clear()
                 V2_data = V2_to_C2(V2_data)
@@ -968,6 +974,11 @@ try:
                 print(carry_on[1])  # PO錯誤提示
                 input("輸入enter結束!")
 
+
+# ======================================================================
+try:
+    logging.basicConfig(level=logging.DEBUG)
+    Make_Cytus2()
 except Exception as e:
     print('...天曉的怎麼失敗了QAQ，不過你可以看這個網址下面Q&A，看看是不是都符合要求')
     print("http://bit.ly/2ssEDwt")
