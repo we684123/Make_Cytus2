@@ -48,7 +48,8 @@ or if you computer OS is not Windows and have Python3,you can open Command windo
 
  - **BPM 280**    
     //形式為整數 ， type=int    
-    歌曲的BPM，用來調整速度    
+    這一行在Cytus1V2中是控制譜面左右兩邊黑色區塊跳動的速度。    
+    在Cytus2V0中則是設定最初的掃線速度。    
     you song how many beats in any 60 second    
     if you not understand plz see [BPM_wiki](https://en.wikipedia.org/wiki/Tempo)    
 
@@ -214,7 +215,7 @@ LINK 4 5
 
 ----
 #### note的格式如下：    
-(note型態)-(id)-(出現時間)-(出線時的x座標)-(持續時間)    
+(note型態)-(id)-(出現時間)-(出現時的x座標)-(持續時間)    
 (字串string)-(整數int)-(浮點數float)-(浮點數float)-(浮點數float)    
 
 **note型態(type)**：    
@@ -249,10 +250,10 @@ CHC -1 will change scan color(G) and print "speed down"
 
 
 #### BPM 格式如下：    
-(BPM)-(預變的BPM)-(作用時間)    
+(BPM)-(欲變的BPM)-(作用時間)    
 (字串string)-(整數int)-(浮點數float)    
 
-預變的BPM，如果一開始你的BPM是280，那你在此輸入560就等於兩倍快撥放。    
+欲變的BPM，如果一開始你的BPM是280，那你在此輸入560就等於兩倍快撥放。    
 
 作用的時間只能是掃線到上下邊界的時間，可容許一點點的誤差，不要超過一幕掃線時間的8分之一為佳。    
 
@@ -291,3 +292,9 @@ you can use TPV4.9 column H get this
   歡迎提供更好的翻譯。    
   I tried my best to translate  Orz...    
   maybe you will do fix translate, if you do ,very thank you!    
+
+---
+## 版本資訊    
+2018/06/17 -    
+- 加入"檢查錯誤並PO出"、修復"get_new_page_list"、移除mac執行檔(有更新py2.7的Make_Cytus2)    
+- eee錯誤次數未顯現，除錯架構可以在更好(之後看看怎麼改)    

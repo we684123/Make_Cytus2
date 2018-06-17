@@ -34,6 +34,43 @@ def creat_C2(V2_data):
     return C2_data
 #y = creat_note_list(V2_data)
 
+def check_settings(V2_text):
+    error_txt = ''
+    error_txt += check_settings_title(V2_text,error_txt)
+    #error_txt += check_settings_note(V2_text,error_txt)
+
+    if error_txt == "":
+        tf = True
+    else:
+        tf = False
+    return [tf,error_txt]
+
+
+
+def check_settings_title(V2_text,error_txt):
+    n = V2_text.split("\n")
+    textlist = [
+    "VERSION",
+    "BPM",
+    "PAGE_SHIFT",
+    "PAGE_SIZE",
+    "scan_line_direction_opposite",
+    "extension_of_time",
+    "auto_fix_type",
+    "change_type_to_LONG_form_x",
+    "change_type_to_SLIDE_form_x",
+    "format_version",
+    "beat",
+    "time_base",
+    "conversion_constant",
+    ]
+
+    for i in range(0,len(textlist)):
+        t = n[i].split(" ")[0]
+        if textlist[i] != t :
+            error_txt += (textlist[i] + " 遺失或打錯(lose or error)\n")
+
+    return error_txt
 
 def creat_note_list(V2_data):
     note_list = []
@@ -536,6 +573,7 @@ def get_V2_data(V2_text):
     # 原本打算把上面的"設定"做成"在哪行都能用"
     # 剩至直接 for k in range(0,len(n)) 這種的，但懶癌發作zzz
     # 暫時放棄，等哪天有心情吧
+    #(^^^現在想想還是嚴格點，會比較好閱讀 2018/06/17)
 
     for j in range(0,ctrl_line):
         n[j]
@@ -545,6 +583,7 @@ def get_V2_data(V2_text):
     u.index('y')
     '''
 
+    eee = 0 # 錯誤的次數
     for i in range(ctrl_line, len(n)):
         if n[i] == '':
             continue
@@ -556,6 +595,7 @@ def get_V2_data(V2_text):
 
         #預處理，刪同樣的code
         isin = 'NOTECHCBPMHOLDLONGSLIDE'
+
         if rt == 'LINK':
             #該方法修正了LINK有2個空白連在一起會出事的問題
             r = re.compile('\d+')
@@ -565,6 +605,7 @@ def get_V2_data(V2_text):
             r1 = re.sub(' ','',str(n[i]))
             j = r1.split('\t')
         else:
+            eee += 1 # 錯誤次數+1
             print("type錯誤!請修正後再來，以下詳情：")
             print("type erroe! plz fix this and try again, error detailed:")
             print("出錯行數 ; error line :")
@@ -581,9 +622,9 @@ def get_V2_data(V2_text):
             if slide>100 and slide<1000 and slide!=0:
 
                 # 設定用x設定的SLIDE type
-                #w = str(float(j[3]))
-                #w = str(0.200456)[-3:-1]
-                #int(1.900456)
+                # w = str(float(j[3]))
+                # w = str(0.200456)[-3:-1]
+                # int(1.900456)
                 if int(float(j[3])*1000000)%1000 == slide:
                     type = "SLIDE"
                     x = change_type_form_x(float(j[3]),slide)
@@ -598,7 +639,7 @@ def get_V2_data(V2_text):
                 if int(float(j[3])*1000000%1000) == long:
                     x = change_type_form_x(float(j[3]),long)
                     type = "LONG"
-                    #x = x - (long*0.000001)
+                    # x = x - (long*0.000001)
 
             k = {
                 "type": type,
@@ -664,7 +705,9 @@ def get_V2_data(V2_text):
                 "hold": float(j[4])
             }
             data["note_list"].append(k)
-    return data
+    if eee != 0 :
+        return [False,eee]
+    return [True,data]
 # -------------------------------------------------------------------------------
 def change_type_form_x(x,v):
     x2 = str(x)
@@ -700,6 +743,7 @@ def get_type(t):
 
 def chang_CHC_BPM(V2_data):
     page_list = get_new_page_list(V2_data)
+    # len(page_list)
     V2_data = reset_page_index(V2_data, page_list)
     page_list = reset_page_list_up_down(V2_data, page_list)
     event_order_list = set_CHC(V2_data)
@@ -722,24 +766,27 @@ def get_new_page_list(V2_data):
                     'time': end_time, 'type': 'BPM'})  # 插入最後的BPM較好處理
     page_list = []
     page_id = 0
-    # l=0
-    for l in range(0, len(set_bpm)):
-        if l >= (len(set_bpm) - 1):
+    # l=1
+    for l in range(0, len(set_bpm)): # 按變BPM的批次處理page_list
+        now_bpm = set_bpm[l]["BPM"]
+        proportion_to_tick = O_bpm / now_bpm #生成endtick的比例
+        #proportion_to_list = now_bpm / O_bpm #生成所需list的比例
+        if l >= (len(set_bpm) - 1): # 沒了 跳離
             break
             # set_bpm[3]
         # print("l = ",l)
-        near = float(set_bpm[l + 1]["time"]) / o_page_time
+        near = float(set_bpm[l + 1]["time"]) / (o_page_time * proportion_to_tick)
+        # near 是一開始到第一個"變BPM"要生的幕數，
         if round(near % 1, 1):
             w = 1
         else:
             w = 0
-        v = int(near) + w
-        now_bpm = set_bpm[l]["BPM"]
-        for k in range(v):
+        v = int(near) + w # 有多的要加1幕
+
+        for k in range(v): # 開始生"幕"
             # print("k = ",k)
-            proportion = O_bpm / now_bpm
             start_tick = end_tick
-            end_tick = end_tick + (page_base * proportion)
+            end_tick = end_tick + (page_base * proportion_to_tick)
             i = end_tick
             page_list_template = {
                 "start_tick": int(start_tick),
@@ -781,7 +828,7 @@ def reset_page_index(V2_data, page_list):
     while i < len(V2_data["note_list"]):
         cut = V2_data["note_list"]
         x = cut[i]["C2_tick"]
-        # print(page_list_pointer)
+        # print("page_list_pointer = ",page_list_pointer)
         # print("i =", i)
 
         st = page_list[page_list_pointer]["start_tick"]
@@ -800,7 +847,7 @@ def reset_page_index(V2_data, page_list):
         else:
             page_list_pointer += 1
     return reset_page_up_down(V2_data)
-# i=0
+# i=254
 # page_list[143]["start_tick"]
 # page_list[106]["start_tick"]
 
@@ -881,80 +928,49 @@ try:
     for i in range(0, len(onlyfiles)):
         j = str(onlyfiles[i])
         fliename = j
+
         if get_extension(j, -1) == 'txt' and (get_extension(j, -2) == 'hard' or get_extension(j, -2) == 'esey'):
             V2_fliename = fliename
-            V2_data = get_V2_data(get_V2_text(j))
-            if V2_data == 99999:
-                pass
-            # pprint(V2_data)
-            # V2_data.clear()
-            V2_data = V2_to_C2(V2_data)
-            # 至此V2_data為正常V2轉C2V0的所有所需，且click_error、fix_hold_error的部分暫緩
-            # 現在將在此基礎上改變線速、note的page_index
-            # (為這樣做的原因是因為原本沒打算做成能製作支援變速的Cytus2的譜的)
-            # 原本只是單純的把V2譜轉成Cytus2而已)
-            V2_data = chang_CHC_BPM(V2_data)
+            V2_text = get_V2_text(j)
+            print("轉換對象(Conversion object):"+fliename)
+            carry_on = check_settings(V2_text)  # [true or false,error text]
+            if carry_on[0]:
+                KeepOn_and_V2Data = get_V2_data(V2_text)
+                if not KeepOn_and_V2Data[0] :
+                    input("輸入enter結束!")
+                    break
+                V2_data = KeepOn_and_V2Data[1]
+                # pprint(V2_data)
+                # V2_data.clear()
+                V2_data = V2_to_C2(V2_data)
+                # 至此V2_data為正常V2轉C2V0的所有所需，且click_error、fix_hold_error的部分暫緩
+                # 現在將在此基礎上改變線速、note的page_index
+                # (會這樣做的原因是因為原本沒打算做成能製作支援變速的Cytus2的譜的，
+                # 原本只是單純的把V2譜轉成Cytus2而已)
+                V2_data = chang_CHC_BPM(V2_data)
 
-            # 進行錯誤偵測，並補上資料
-            V2_data = click_error(V2_data)
-            if V2_data["auto_fix_type"] == 1:
-                V2_data = fix_hold_error(V2_data)  # 要改?
+                # 進行錯誤偵測(非格式)，並補上資料
+                V2_data = click_error(V2_data)
+                if V2_data["auto_fix_type"] == 1:
+                    V2_data = fix_hold_error(V2_data)
 
-            C2_data = json.dumps(creat_C2(V2_data))
-            C2_data = re.sub(' ', "", C2_data)
-            C2_data2 = json.dumps(creat_C2V0plus(V2_data))
-            C2_data2 = re.sub(' ', "", C2_data2)
+                C2_data = json.dumps(creat_C2(V2_data))
+                C2_data = re.sub(' ', "", C2_data)
+                C2_data2 = json.dumps(creat_C2V0plus(V2_data))
+                C2_data2 = re.sub(' ', "", C2_data2)
 
-            output_V1plus(V2_fliename, V2_data)
-            result1 = creat_flie((V2_fliename + '.c2v0plus'), C2_data2)
-            result2 = creat_flie((V2_fliename + '.c2v0'), C2_data)
-            if result1 == 0 and result2 == 0:
-                print("轉換成功! Success!")
+                output_V1plus(V2_fliename, V2_data)
+                result1 = creat_flie((V2_fliename + '.c2v0plus'), C2_data2)
+                result2 = creat_flie((V2_fliename + '.c2v0'), C2_data)
+                if result1 == 0 and result2 == 0:
+                    print("轉換成功! Success!")
+            else:
+                print(carry_on[1])  # PO錯誤提示
+                input("輸入enter結束!")
+
 except Exception as e:
     print('...天曉的怎麼失敗了QAQ，不過你可以看這個網址下面Q&A，看看是不是都符合要求')
     print("http://bit.ly/2ssEDwt")
     print("失敗原因:")
     print(e)
-'''
-mypath = os.getcwd()
-onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
-# i=4
-for i in range(0, len(onlyfiles)):
-    j = str(onlyfiles[i])
-    fliename = j
-    if get_extension(j, -1) == 'txt' and (get_extension(j, -2) == 'hard' or get_extension(j, -2) == 'esey'):
-        V2_fliename = fliename
-        V2_data = get_V2_data(get_V2_text(j))
-        if V2_data == 99999:
-            pass
-        # pprint(V2_data)
-        # V2_data.clear()
-        V2_data = V2_to_C2(V2_data)
-        # 至此V2_data為正常V2轉C2V0的所有所需，且click_error、fix_hold_error的部分暫緩
-        # 現在將在此基礎上改變線速、note的page_index
-        # (為這樣做的原因是因為原本沒打算做成能製作支援變速的Cytus2的譜的)
-        # 原本只是單純的把V2譜轉成Cytus2而已)
-        V2_data = chang_CHC_BPM(V2_data)
-
-        # 進行錯誤偵測，並補上資料
-        V2_data = click_error(V2_data)
-        if V2_data["auto_fix_type"] == 1:
-            V2_data = fix_hold_error(V2_data)  # 要改?
-
-        C2_data = json.dumps(creat_C2(V2_data))
-        C2_data = re.sub(' ', "", C2_data)
-        C2_data2 = json.dumps(creat_C2V0plus(V2_data))
-        C2_data2 = re.sub(' ', "", C2_data2)
-
-        output_V1plus(V2_fliename, V2_data)
-        result1 = creat_flie((V2_fliename + '.c2v0plus'), C2_data2)
-        result2 = creat_flie((V2_fliename + '.c2v0'), C2_data)
-        if result1 == 0 and result2 == 0:
-            print("轉換成功! Success!")
-
-
-
-# V2_text = get_V2_text(j)
-# pprint(V2_data)
-# pprint(get_V2_text(j))
-'''
+    input("輸入enter結束!")

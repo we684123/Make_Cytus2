@@ -14,3 +14,8 @@ change_type_to_SLIDE_form_x
 pyinstaller -F --icon=Make_Cytus2_icon.ico Make_Cytus2.py
 
 如果想用最新版的，那只能先用python3跑 Make_Cytus2/Make_Cytus.py 了。
+
+#2018/06/17 - 
+刪除mac專用執行檔，現在除非有人幫忙編譯，不然只能跑內建的python2.7
+或是自己有python3可以跑外面的 "Make_Cytus.py" 了。
+(依舊沒 change_type_to_LONG、SLIDE_form_x
