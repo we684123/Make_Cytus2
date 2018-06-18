@@ -11,7 +11,7 @@ if you understand the readme , and want to chang the English explanation , plz o
 
 ## 教學影片
 ---
-[![ake_Cytus2_教學影片](http://img.youtube.com/vi/tOkCOcP-nmY/0.jpg)](http://bit.ly/2yjI91k)
+[![Make_Cytus2_教學影片](http://img.youtube.com/vi/tOkCOcP-nmY/0.jpg)](http://bit.ly/2yjI91k)
 
 ---
 ## 怎麼使用Make_Cytus2 ； how to use Make_Cytus2
