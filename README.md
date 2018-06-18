@@ -7,10 +7,10 @@
 First time you can use  [Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:JCEXE/List_of_Cytus_simulation_programs:_2017_edition#Cytunity) bind time and X axis position and hole time     
 after , move chart to TPV4.9 , change speed and note type and output flie.       
 
-if you understand the readme , and want to chang the English explanation , plz open issue or fork_push here .
+if you understand the readme , and want to chang the English explanation , plz open issue or fork_push here .    
 
-## 教學影片
 ---
+## 教學影片
 [![Make_Cytus2_教學影片](http://img.youtube.com/vi/tOkCOcP-nmY/0.jpg)](http://bit.ly/2yjI91k)
 
 ---
