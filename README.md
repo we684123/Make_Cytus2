@@ -1,5 +1,6 @@
 # Make_Cytus2
 製作Cytus2譜面用；Make Cytus2 charts。    
+![Make_Cytus2_icon](https://github.com/we684123/Make_Cytus2/blob/teach_video_to_use/icon/Make_Cytus2_icon.png?raw=true)    
 
 基本上可以先用[Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:JCEXE/List_of_Cytus_simulation_programs:_2017_edition#Cytunity)對好時間跟位置後在輸出譜面並[將link跟時間重新綁好](https://cdn.discordapp.com/attachments/430987888042180610/431001210552582146/79e38aa80b706550.rar)後，再送來這邊做型態變換和變速。
 
@@ -7,6 +8,10 @@ First time you can use  [Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:J
 after , move chart to TPV4.9 , change speed and note type and output flie.       
 
 if you understand the readme , and want to chang the English explanation , plz open issue or fork_push here .
+
+## 教學影片
+---
+[![ake_Cytus2_教學影片](http://img.youtube.com/vi/tOkCOcP-nmY/0.jpg)](http://bit.ly/2yjI91k)
 
 ---
 ## 怎麼使用Make_Cytus2 ； how to use Make_Cytus2
