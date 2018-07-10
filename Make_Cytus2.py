@@ -772,17 +772,27 @@ def get_new_page_list(V2_data):
     page_list = []
     page_id = 0
     # l=0
-    for l in range(0, len(set_bpm)):
-        if l >= (len(set_bpm) - 1):
-            break
+    for l in range(0, len(set_bpm)-1): #抓後面比前面 所以-1
+        #if l >= (len(set_bpm) - 1):
+        #    break
             # set_bpm[3]
         # print("l = ",l)
-        near = float(set_bpm[l + 1]["time"]) / o_page_time
-        if round(near % 1, 1):
+
+        #差時抓出來後除單幕時間等於數量
+        gap_time = float(set_bpm[l + 1]["time"]) - float(set_bpm[l]["time"])
+        near = gap_time / o_page_time
+        # near = 11.01
+
+        #找出逼近哪個幕值，此值將為生產多少的幕
+        if int(round(near % 1, 1)*10) > 5:
             w = 1
+            print(w)
         else:
             w = 0
+            print(w)
         v = int(near) + w
+
+        #比對與原BPM的比例去決定生產幕的時間
         now_bpm = set_bpm[l]["BPM"]
         for k in range(v):
             # print("k = ",k)
