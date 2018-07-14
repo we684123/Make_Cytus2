@@ -13,7 +13,7 @@ if you understand the readme , and want to chang the English explanation , plz o
 ---
 ## trytoc2(chang_BPM) 實際影片(video)
 [![trytoc2(chang_BPM) 實際影片](http://img.youtube.com/vi/5hqRt_Q3cwM/0.jpg)](http://bit.ly/2zEdlcr)    
-推薦各位用 "Cytus ll Chart Player 0.7 Preview1" 這個版本或更高去撥放。
+推薦各位用 "Cytus ll Chart Player 0.7 Preview1" 這個版本或更高去播放。
 
 ---
 ## 教學影片(teach_video)
@@ -285,7 +285,7 @@ you can use TPV4.9 column H get this
 
 - 轉譜失敗?
   - 請依照 Make_Cytus2 的提示修正問題，如果沒提示那就繼續往下看吧。
-    
+
   - 請檢察你的 note 時間是不是 **"不是由小到大"**，通常會有這樣問題的譜都是從 [Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:JCEXE/List_of_Cytus_simulation_programs:_2017_edition#Cytunity) 生出的譜，請點 "[將link跟時間重新綁好](https://cdn.discordapp.com/attachments/430987888042180610/431001210552582146/79e38aa80b706550.rar)" 並用該工具修好譜面後再把設定補上，之後才用 Make_Cytus2 來轉譜。
   - 請檢察你的譜面最上面13行設定是不是有照我方**規定順序排列**、有沒有按照格式規定去設置。    
   (例如 auto_fix_type 只能設0和1的整數，或是名稱跟值沒有空白分開，像是"beat4"(X) "beat 4"(O)，還是你輸入的空白不是空白，而是TAB鍵)
