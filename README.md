@@ -1,3 +1,12 @@
+#維修中公告(Announcement in maintenance)
+目前發現兩個問題
+1. TPV4.9提供的 "邊界時間" 有時會出錯
+2. Make_Cytus2 的變速幕數錯誤
+
+1的話正在檢查公式中，之後會更新
+2的話目前 Make_Cytus2.py 這個檔案是可以用的，但其他的win32、64執行檔的內容還是舊的，等這兩個問題解決後才會更新，所以暫時請直接使用 .py 的檔案吧
+
+
 # Make_Cytus2
 製作Cytus2譜面用；Make Cytus2 charts。    
 ![Make_Cytus2_icon](https://github.com/we684123/Make_Cytus2/blob/teach_video_to_use/icon/Make_Cytus2_icon.png?raw=true)    
@@ -8,7 +17,7 @@ First time you can use  [Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:J
 after , move chart to TPV4.9 , change speed and note type and output flie.       
 
 if you understand the readme , and want to chang the English explanation , plz open issue or fork_push here .    
-    
+
 ---
 ## 教學影片
 [![Make_Cytus2_教學影片](http://img.youtube.com/vi/tOkCOcP-nmY/0.jpg)](http://bit.ly/2yjI91k)

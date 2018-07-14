@@ -771,22 +771,42 @@ def get_new_page_list(V2_data):
                     'time': end_time, 'type': 'BPM'})  # 插入最後的BPM較好處理
     page_list = []
     page_id = 0
-    # l=0
-    for l in range(0, len(set_bpm)):
-        if l >= (len(set_bpm) - 1):
-            break
+    # l=2
+    for l in range(0, len(set_bpm)-1): #抓後面比前面 所以-1
+        #if l >= (len(set_bpm) - 1):
+        #    break
             # set_bpm[3]
         # print("l = ",l)
-        near = float(set_bpm[l + 1]["time"]) / o_page_time
-        if round(near % 1, 1):
+
+        #先將BPM抓出來，才能做比例(做單幕時間)
+        now_bpm = set_bpm[l]["BPM"]
+        proportion = O_bpm / now_bpm
+
+
+
+        #差時抓出來後除單幕時間等於數量
+        gap_time = float(set_bpm[l + 1]["time"]) - float(set_bpm[l]["time"])
+        near = gap_time / (o_page_time*proportion)
+        # near = 11.01
+
+        #找出逼近哪個幕值，此值將為生產多少的幕
+        if int(round(near % 1, 1)*10) > 5:
             w = 1
         else:
             w = 0
         v = int(near) + w
-        now_bpm = set_bpm[l]["BPM"]
+
+        #因為next time的bug(?) 所以先在尾末加多的幕出來
+        #之後再看是要怎麼修
+        if l == len(set_bpm)-2:
+            v += 50
+            pass
+
+        #比對與原BPM的比例去決定生產幕的時間
+        #now_bpm = set_bpm[l]["BPM"]
         for k in range(v):
             # print("k = ",k)
-            proportion = O_bpm / now_bpm
+            #proportion = O_bpm / now_bpm
             start_tick = end_tick
             end_tick = end_tick + (page_base * proportion)
             i = end_tick
@@ -830,17 +850,17 @@ def reset_page_index(V2_data, page_list):
     while i < len(V2_data["note_list"]):
         cut = V2_data["note_list"]
         x = cut[i]["C2_tick"]
-        #print("page_list_pointer = " + str(page_list_pointer))
-        #print("i =" + str(i))
+        print("page_list_pointer = " + str(page_list_pointer))
+        print("i =" + str(i))
         #logging.debug("page_list_pointer = " + str(page_list_pointer))
         #logging.debug("i =" + str(i))
 
         st = page_list[page_list_pointer]["start_tick"]
         ed = page_list[page_list_pointer]["end_tick"]
-        #print("st = " + str(st))
-        #print("x =" + str(x))
-        #print("ed =" + str(ed))
-        #print(x < ed and x > st)
+        print("st = " + str(st))
+        print("x =" + str(x))
+        print("ed =" + str(ed))
+        print(x < ed and x > st)
         # print("-----------------------")
         #logging.debug("st = " + str(st))
         #logging.debug("x =" + str(x))
