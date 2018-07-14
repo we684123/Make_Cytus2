@@ -1,12 +1,3 @@
-# 維修中公告(Announcement in maintenance)
-目前發現兩個問題    
-1. TPV4.9提供的 "邊界時間" 有時會出錯    
-2. Make_Cytus2 的變速幕數錯誤    
-
-1的話正在檢查公式中，之後會更新    
-2的話目前 Make_Cytus2.py 這個檔案是可以用的，但其他的win32、64執行檔的內容還是舊的，等這兩個問題解決後才會更新，所以暫時請直接使用 .py 的檔案吧    
-
-    
 # Make_Cytus2
 製作Cytus2譜面用；Make Cytus2 charts。    
 ![Make_Cytus2_icon](https://github.com/we684123/Make_Cytus2/blob/teach_video_to_use/icon/Make_Cytus2_icon.png?raw=true)    
@@ -18,8 +9,14 @@ after , move chart to TPV4.9 , change speed and note type and output flie.
 
 if you understand the readme , and want to chang the English explanation , plz open issue or fork_push here .    
 
+
 ---
-## 教學影片
+## trytoc2(chang_BPM) 實際影片(video)
+[![trytoc2(chang_BPM) 實際影片](http://img.youtube.com/vi/5hqRt_Q3cwM/0.jpg)](http://bit.ly/2zEdlcr)    
+推薦各位用 "Cytus ll Chart Player 0.7 Preview1" 這個版本或更高去播放。
+
+---
+## 教學影片(teach_video)
 [![Make_Cytus2_教學影片](http://img.youtube.com/vi/tOkCOcP-nmY/0.jpg)](http://bit.ly/2yjI91k)
 
 ---
@@ -247,7 +244,7 @@ NOTE	6	11.499799	0.500000	0.754260
 這個東西會將所選中的 note **強制轉成 LINK 型態！！！**，請務必注意此特性。    
 (最高優先權)
 
-if use LINK type the note will **forcibly reset type to NINK！！！**    
+if use LINK type the note will **forcibly reset type to LINK！！！**    
 (The highest rule)
 
 #### CHC 格式如下：    
@@ -309,6 +306,13 @@ you can use TPV4.9 column H get this
 
 ---
 ## 版本資訊    
+2018/07/14 -    
+- 修正page_list幕數錯誤、移除整個mac支援(直接用py3跑比較快)    
+- 新增trytoc2的影片    
+- 將範例檔分成"僅轉換"、和"有變數"兩個版本方便理解    
+- TPV4.9 debug+更新UI+分空白檔和範例檔    
+
+
 2018/06/17 -    
 - 加入"檢查錯誤並PO出"、修復"get_new_page_list"、移除mac執行檔(有更新py2.7的Make_Cytus2)    
 - eee錯誤次數未顯現，除錯架構可以在更好(之後看看怎麼改)    

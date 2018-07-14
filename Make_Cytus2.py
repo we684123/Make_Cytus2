@@ -769,6 +769,8 @@ def get_new_page_list(V2_data):
     end_time = float(V2_data["note_list"][len_note_list - 1]["time"])
     set_bpm.append({'BPM': set_bpm[len(set_bpm) - 1]['BPM'],
                     'time': end_time, 'type': 'BPM'})  # 插入最後的BPM較好處理
+    print("set_bpm = \n",set_bpm)
+    print("============================")
     page_list = []
     page_id = 0
     # l=2
@@ -776,7 +778,8 @@ def get_new_page_list(V2_data):
         #if l >= (len(set_bpm) - 1):
         #    break
             # set_bpm[3]
-        # print("l = ",l)
+        print("l = ",l)
+        print("BPM = ",set_bpm[l])
 
         #先將BPM抓出來，才能做比例(做單幕時間)
         now_bpm = set_bpm[l]["BPM"]
@@ -788,6 +791,8 @@ def get_new_page_list(V2_data):
         gap_time = float(set_bpm[l + 1]["time"]) - float(set_bpm[l]["time"])
         near = gap_time / (o_page_time*proportion)
         # near = 11.01
+        print("near = ",near)
+        print("----------------")
 
         #找出逼近哪個幕值，此值將為生產多少的幕
         if int(round(near % 1, 1)*10) > 5:
@@ -850,17 +855,17 @@ def reset_page_index(V2_data, page_list):
     while i < len(V2_data["note_list"]):
         cut = V2_data["note_list"]
         x = cut[i]["C2_tick"]
-        print("page_list_pointer = " + str(page_list_pointer))
-        print("i =" + str(i))
+        #print("page_list_pointer = " + str(page_list_pointer))
+        #print("i =" + str(i))
         #logging.debug("page_list_pointer = " + str(page_list_pointer))
         #logging.debug("i =" + str(i))
 
         st = page_list[page_list_pointer]["start_tick"]
         ed = page_list[page_list_pointer]["end_tick"]
-        print("st = " + str(st))
-        print("x =" + str(x))
-        print("ed =" + str(ed))
-        print(x < ed and x > st)
+        #print("st = " + str(st))
+        #print("x =" + str(x))
+        #print("ed =" + str(ed))
+        #print(x < ed and x > st)
         # print("-----------------------")
         #logging.debug("st = " + str(st))
         #logging.debug("x =" + str(x))
@@ -952,7 +957,7 @@ def set_CHC(V2_data):
 def Make_Cytus2():
     mypath = os.getcwd()
     onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
-    # i=4
+    # i=6
     for i in range(0, len(onlyfiles)):
         j = str(onlyfiles[i])
         fliename = j
@@ -1002,10 +1007,14 @@ def Make_Cytus2():
 '''
 # logging.basicConfig(level=logging.DEBUG)
 # logging.basicConfig(level=logging.INFO)
-# logging一用整個效能大幅降低 怕.png 找不到取代模組舊只能自幹了
+# logging一用整個效能大幅降低 怕.png 找不到取代模組就只能自幹了
 '''
+
 try:
     Make_Cytus2()
+    print('如果上方的 near 值有出現與"整數值"相差超過0.15的話(最後一個near值不用管)')
+    print('請注意轉換後的幕"可能"會少或多一幕，如有多或少的狀況，請調整一下BPM的作用時間')
+    input("輸入enter結束!")
 except Exception as e:
     print('...天曉的怎麼失敗了QAQ，不過你可以看這個網址下面Q&A，看看是不是都符合要求')
     print("http://bit.ly/2ssEDwt")
