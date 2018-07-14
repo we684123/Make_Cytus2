@@ -6,7 +6,7 @@
 1的話正在檢查公式中，之後會更新    
 2的話目前 Make_Cytus2.py 這個檔案是可以用的，但其他的win32、64執行檔的內容還是舊的，等這兩個問題解決後才會更新，所以暫時請直接使用 .py 的檔案吧    
 
-    
+
 # Make_Cytus2
 製作Cytus2譜面用；Make Cytus2 charts。    
 ![Make_Cytus2_icon](https://github.com/we684123/Make_Cytus2/blob/teach_video_to_use/icon/Make_Cytus2_icon.png?raw=true)    
@@ -247,7 +247,7 @@ NOTE	6	11.499799	0.500000	0.754260
 這個東西會將所選中的 note **強制轉成 LINK 型態！！！**，請務必注意此特性。    
 (最高優先權)
 
-if use LINK type the note will **forcibly reset type to NINK！！！**    
+if use LINK type the note will **forcibly reset type to LINK！！！**    
 (The highest rule)
 
 #### CHC 格式如下：    
