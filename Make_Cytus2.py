@@ -799,7 +799,7 @@ def get_new_page_list(V2_data):
         #因為next time的bug(?) 所以先在尾末加多的幕出來
         #之後再看是要怎麼修
         if l == len(set_bpm)-2:
-            v += 3
+            v += 50
             pass
 
         #比對與原BPM的比例去決定生產幕的時間
