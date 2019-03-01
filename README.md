@@ -1,6 +1,6 @@
 # Make_Cytus2
 製作Cytus2譜面用；Make Cytus2 charts。    
-![Make_Cytus2_icon](https://github.com/we684123/Make_Cytus2/blob/teach_video_to_use/icon/Make_Cytus2_icon.png?raw=true)    
+![Make_Cytus2_icon](https://raw.githubusercontent.com/we684123/Make_Cytus2/master/icon/Make_Cytus2_icon.png)    
 
 基本上可以先用[Cytunity](http://cytus-fanon.wikia.com/wiki/User_blog:JCEXE/List_of_Cytus_simulation_programs:_2017_edition#Cytunity)對好時間跟位置後在輸出譜面並[將link跟時間重新綁好](https://cdn.discordapp.com/attachments/430987888042180610/431001210552582146/79e38aa80b706550.rar)後，再送來這邊做型態變換和變速。
 
@@ -217,12 +217,16 @@ NOTE	0	9.642858	0.200000	0.000000
 SLIDE	1	9.642958	0.200000	0.000000    
 LONG	2	10.071230	0.500000	0.500000    
 HOLD	3	10.071430	0.800000	3.000000    
-NOTE	4	10.071430	0.200000	0.000000    
+NOTE	4	10.071430	0.400000	0.000000    
 CHC	1	10.071500    
 BPM	560	10.273459557132    
 NOTE	5	10.499799	0.500000	0.000000    
 NOTE	6	11.499799	0.500000	0.754260    
+NOTE	7	10.071430	0.500000	3.000000    
+NOTE	8	10.071430	0.800000	0.000000    
 LINK 4 5    
+CKLINK 7 8
+
 
 ----
 #### note的格式如下：    
@@ -237,14 +241,17 @@ LINK 4 5
 另外 **完全兼容Cytus1_V2格式** ，如果你想用出 HOLD 也是可以用    
 NOTE	6	11.499799	0.500000	0.754260    
 這種方式是可以接受的。    
-#### LINK 的格式如下：    
-(LINK)-(目標id)-(目標id)-(目標id)....    
+#### LINK、CKLINK 的格式如下：    
+LINK 是普通鎖鏈
+CKLINK 則是"第一個鎖鏈強制點的那種鎖鏈"
+
+(LINK or CKLINK)-(目標id)-(目標id)-(目標id)....    
 (字串string)-(整數int)-(整數int)-(整數int)...    
 
-這個東西會將所選中的 note **強制轉成 LINK 型態！！！**，請務必注意此特性。    
+這個東西會將所選中的 note **強制轉成 LINK or CKLINK 型態！！！**，請務必注意此特性。    
 (最高優先權)
 
-if use LINK type the note will **forcibly reset type to LINK！！！**    
+if use LINK type the note will **forcibly reset type to LINK or CKLINK！！！**    
 (The highest rule)
 
 #### CHC 格式如下：    
@@ -303,9 +310,20 @@ you can use TPV4.9 column H get this
   歡迎提供更好的翻譯。    
   I tried my best to translate  Orz...    
   maybe you will do fix translate, if you do ,very thank you!    
+- 譜面播放器不支援CKLINK形式    
+  這個...要請作者更新，我這邊無法幫忙><
+
+
 
 ---
 ## 版本資訊    
+2019/03/02 -    
+- 支援 "第一個鎖鏈強制點的那種鎖鏈"，用 "CKLINK"
+(但是還沒有用譜面播放器驗證過(作者也還沒更新播放器)，所以有問題歡迎回報)
+(或者用舊版的 [Make_Cytus2](https://github.com/we684123/Make_Cytus2/releases/tag/V0.1) )
+
+
+
 2018/07/14 -    
 - 修正page_list幕數錯誤、移除整個mac支援(直接用py3跑比較快)    
 - 新增trytoc2的影片    
