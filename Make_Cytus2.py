@@ -154,6 +154,7 @@ def V2_to_C2(V2_data):
     if float(V2_data["extension_of_time"]) != 0:
         V2_data = extension_of_time(V2_data)  # 同時加減時間
     V2_data = Bind(V2_data)  # 綁定link(下一個)
+    V2_data = Bind2(V2_data)  # 綁定CKlink(下一個)
     V2_data = supplement_next_id(V2_data)  # 綁定link(最後補-1)
     V2_data = supplement_C2noteType(V2_data)  # 綁定C2的note_type
     V2_data = supplement_C2tempo_list_value(V2_data)  # 設定C2的value
@@ -464,6 +465,22 @@ def supplement_C2noteType_ToLinkhead(V2_data_Bind_sup):
     return V2_data_Bind_sup
 
 
+def supplement_C2noteType_ToCkLinkBody(V2_data_Bind_sup):
+    for i in range(0, len(V2_data_Bind_sup["CkLink_list"])):
+        link_len = len(V2_data_Bind_sup["CkLink_list"][i]["id_list"])
+        for j in range(0, link_len):
+            id = int(V2_data_Bind_sup["CkLink_list"][i]["id_list"][j])
+            V2_data_Bind_sup["note_list"][id]["C2_type"] = 7
+    return V2_data_Bind_sup
+
+
+def supplement_C2noteType_ToCkLinkhead(V2_data_Bind_sup):
+    for i in range(0, len(V2_data_Bind_sup["CkLink_list"])):
+        id = int(V2_data_Bind_sup["CkLink_list"][i]["id_list"][0])
+        V2_data_Bind_sup["note_list"][id]["C2_type"] = 6
+    return V2_data_Bind_sup
+
+
 def supplement_C2noteType_ToHold(V2_data_Bind_sup):
     for i in range(0, len(V2_data_Bind_sup["note_list"])):
         if float(V2_data_Bind_sup["note_list"][i]["hold"]) > 0:
@@ -501,6 +518,8 @@ def supplement_C2noteType(V2_data_Bind_sup):
 
     V2_data_Bind_sup = supplement_C2noteType_ToLinkBody(V2_data_Bind_sup)
     V2_data_Bind_sup = supplement_C2noteType_ToLinkhead(V2_data_Bind_sup)
+    V2_data_Bind_sup = supplement_C2noteType_ToCkLinkBody(V2_data_Bind_sup)
+    V2_data_Bind_sup = supplement_C2noteType_ToCkLinkhead(V2_data_Bind_sup)
     return V2_data_Bind_sup
 
 
@@ -533,6 +552,15 @@ def Bind(V2_data):
                 V2_data["note_list"][id]["next_id"] = V2_data["link_list"][i]["id_list"][j + 1]
     return V2_data
 
+def Bind2(V2_data):
+    len(V2_data["CkLink_list"])
+    for i in range(0, len(V2_data["CkLink_list"])):
+        link_len = len(V2_data["CkLink_list"][i]["id_list"])
+        if link_len > 1:
+            for j in range(0, link_len - 1):
+                id = int(V2_data["CkLink_list"][i]["id_list"][j])
+                V2_data["note_list"][id]["next_id"] = V2_data["CkLink_list"][i]["id_list"][j + 1]
+    return V2_data
 
 def get_extension(filename, reciprocal):
     extension = filename.split(".")[reciprocal]
@@ -568,6 +596,7 @@ def get_V2_data(V2_text):
         "conversion_constant": int(n[12].split(" ")[-1]),
         "note_list": [],
         "link_list": [],
+        "CkLink_list":[],
         "CHC_list": [],
         "BPM_list": []
     }
@@ -598,7 +627,7 @@ def get_V2_data(V2_text):
         # 預處理，刪同樣的code
         isin = 'NOTECHCBPMHOLDLONGSLIDE'
 
-        if rt == 'LINK':
+        if rt == 'LINK' or rt == 'CKLINK':
             # 該方法修正了LINK有2個空白連在一起會出事的問題
             r = re.compile('\d+')
             j = r.findall(str(n[i]))
@@ -652,20 +681,19 @@ def get_V2_data(V2_text):
             }
             data["note_list"].append(k)
         elif rt == 'LINK':
-            # 下面註解留下是怕最後如果壞了還可以用老方法
-            # t = 'LINK 60 61 62 63 64 65 66 67 68 69 70 71 72 73 75'
-            # r = re.compile('\d+')
-            # r10 = r.findall(str(t))
-            # r = re.compile('\d+')
-            # j = r.findall(str(n[i]))
-            # j = n[i].split(' ')
-
             k = {
                 "type": "LINK",
                 "id_list": []
             }
             k["id_list"] = j
             data["link_list"].append(k)
+        elif rt == 'CKLINK':
+            k = {
+                "type": "CKLINK",
+                "id_list": []
+            }
+            k["id_list"] = j
+            data["CkLink_list"].append(k)
         elif rt == 'CHC':
             k = {
                 "type": "CHC",
